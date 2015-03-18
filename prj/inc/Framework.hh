@@ -38,7 +38,7 @@ public:
   virtual void WczytajDane(const char *nazwaPliku, unsigned int n) = 0;
 
   /*!
-   * \brief
+   * \brief 
    * Wykonanie części obliczeniowej programu
    *
    * Metoda w której implementowana jest część obliczeniowa

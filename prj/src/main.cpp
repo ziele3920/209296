@@ -21,39 +21,44 @@
  * Przykład wywoałania z tworzeniem pliku z danymi: "./a.out dane.dat l"
  */
 
-#include "../inc/Tablica.hh"
+#include "../src/Lista.cpp"
 #include "../inc/Statystyka.hh"
 #include <ctime>
-
+#include "../inc/InterfejsADT.hh"
+#include "../inc/Framework.hh"
 
 #define ILOSC_POWTORZEN 10
 #define ILOSC_PROB 5
 
 int main(int argc, char *argv[]) {
-  unsigned int iloscDanych[ILOSC_PROB] = {1, 10, 1000, 1000000, 1000000000};
-  unsigned int maxDanych = iloscDanych[ILOSC_PROB-1];
+  unsigned int iloscDanych[ILOSC_PROB] = {1, 10, 1000, 1000000, 100000000};
+  //unsigned int maxDanych = iloscDanych[ILOSC_PROB-1];
   std::clock_t poczatek, koniec;
   double suma;
-  Tablica t(maxDanych);
+  InterfejsADT<int> *I;
   Statystyka stat(ILOSC_PROB, iloscDanych);
+  Lista<int> *L = new Lista<int>;
 
 
-  if(argc == 3)
-    LosujIntDoPliku(maxDanych, 10);
-
+  /*if(argc == 3)
+    LosujIntDoPliku(maxDanych, 10);*/
+  /*
   for(int i=0; i<ILOSC_PROB; i++) {
     suma = 0;
     for (int k=0; k<ILOSC_POWTORZEN; k++) {
+      Lista<int> *L = new Lista<int>;
+      I = L;
       poczatek = std::clock();
-      t.Start(iloscDanych[i]);
+      I -> Start(iloscDanych[i]);
       koniec = std::clock();
       suma = suma + (koniec - poczatek);
+      delete L;
     }
     stat[i] = (suma/10)/(double)(CLOCKS_PER_SEC / 1000);
   }
 
 stat.ZapiszStaty();
-
+  */
 
 return 0;
 }
