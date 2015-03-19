@@ -87,7 +87,7 @@ public:
    * Pierwsza linia pliku to wielkości prób
    * druga to średnie czasy wykonania podane w ms;
    */
-  void ZapiszStaty();
+  void ZapiszStaty(std::string nazwaPliku);
 
 };
 

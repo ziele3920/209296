@@ -13,8 +13,6 @@
 #include "../inc/InterfejsADT.hh"
 #include "../inc/Pliki.hh"
 #include <ctime>
-#include <iostream>
-#include <cstdlib>
 
 /*!
  * \brief
@@ -105,7 +103,7 @@ public:
    * Destruktor listy
    *
    * Zwalnia zaalokowana przez liste pamiec
-   */
+   */ /*
   ~Lista() {
    Element *next = Poczatek;
     std::cout << "destroy" << std::endl;
@@ -114,8 +112,23 @@ public:
       delete Poczatek;
       Poczatek = next;
     }
-}
+    }*/
 
+  /*!
+   * \brief
+   * Zwalnia pamięć
+   *
+   * Zwalnia pamięć zajmowaną przez listę
+   */
+  void Zwolnij() {
+    Element *next = Poczatek;
+    for (unsigned int i = 0; i<(Rozmiar-1); i++) {
+      next = next -> nastepny;
+      delete Poczatek;
+      Poczatek = next;
+    }
+    Rozmiar = 0;
+  }
     /*!
      * \brief
      * Dodaje daną do Listy
@@ -132,20 +145,17 @@ public:
 	std::cerr << "Nie mozna dodac elementu! Bledny indeks. Mozesz uzyc indeksu z zakresu od 0 (poczatek) do " << Rozmiar << " (koniec)" << std::endl;
       }
       else if (Poczatek == NULL) { 
-	std::cout << "NULL"  << std::endl;
 	Element *nowy = new Element(dana);
 	Poczatek = nowy; Koniec = nowy;
 	Rozmiar++;
       }
       else if(pole == 0) {
-	//std::cout << "POCZATEK"  << std::endl;
 	Element *nowy = new Element(dana);
 	nowy->nastepny = Poczatek;
 	Poczatek = nowy;
 	Rozmiar++;
       }
       else if(pole == (Rozmiar)) {
-	std::cout << "KONIEC"  << std::endl;
 	Element *nowy = new Element(dana);
 	nowy->nastepny = NULL;
 	Koniec->nastepny = nowy;
@@ -153,7 +163,6 @@ public:
 	Rozmiar++;
       }
       else {
-	std::cout << "SRODEK"  << std::endl;
 	Element *nowy = new Element(dana);
 	Element *indeksator = Poczatek;
 	Element *tymczasowy;
@@ -187,14 +196,12 @@ public:
       std::cerr << "Nie mozna usunac elementow z pustej listy!!!!" << std::endl;
     }
     else if(pole == 0) {
-      std::cout << "usuwam POCZATEK" << std::endl;
       Element *tymczasowy = Poczatek->nastepny;
       delete Poczatek;
       Poczatek = tymczasowy;
       Rozmiar--;
     }
     else if(pole == (Rozmiar-1)) {
-      std::cout << "usuwam KONIEC" << std::endl;
       Element *indeksator = Poczatek; 
       for(unsigned int i = 0; i<(pole-1); i++)
 	indeksator = indeksator -> nastepny;
@@ -203,7 +210,6 @@ public:
       Rozmiar--;
     }
     else {
-      std::cout << "usuwam SRODEK" << std::endl;
       Element *indeksator = Poczatek;
       Element *tymczasowy;
       for(unsigned int i = 0; i<(pole-1); i++)
@@ -256,23 +262,4 @@ public:
 
 };
 
-/*
-  int main() {
-    std::clock_t poczatek, koniec;
-     double suma = 0, czas;
-    Lista<int> *L = new Lista<int>;
- InterfejsADT<int> *I = L;
-
-   poczatek = std::clock();
-   I->Start(100000000);
-   koniec = std::clock();
-   suma = suma + (koniec - poczatek);
-   czas = (suma/10)/(double)(CLOCKS_PER_SEC / 1000);
-    delete L;
-      std::cout <<"czas: " << czas << std::endl;
-      int k;
-      std::cin >> k;
-    return 0;
-  }
-*/
 #endif

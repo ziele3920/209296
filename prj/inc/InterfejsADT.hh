@@ -14,7 +14,7 @@ class InterfejsADT : public Framework {
 
 public:
 
-  virtual ~InterfejsADT() = 0;
+  // virtual ~InterfejsADT() = 0;
 
   /*!
    * \brief
@@ -73,6 +73,14 @@ public:
    * \param[in] k - ilość elementów dla których mają zostać wykonane obliczenia.
    */
   void Start(const unsigned int k) = 0;
+
+  /*!
+   * \brief
+   * Zwalnia pamięć
+   *
+   * Zwalnia pamięć zajmowaną przez daną strukturę
+   */
+  virtual void Zwolnij () = 0;
 
 
 

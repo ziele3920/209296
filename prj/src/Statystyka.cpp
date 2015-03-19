@@ -9,6 +9,7 @@
 #include "../inc/Statystyka.hh"
 #include <fstream>
 #include <cstdlib>
+#include <string>
 
 Statystyka::Statystyka(const unsigned int iloscProb, unsigned int *proby) {
   IleProb = iloscProb;
@@ -18,11 +19,11 @@ Statystyka::Statystyka(const unsigned int iloscProb, unsigned int *proby) {
      Proba[i] = proby[i];
 }
 
-void Statystyka::ZapiszStaty() {
+void Statystyka::ZapiszStaty(std::string nazwaPliku) {
 
   std::fstream plik;
 
-  plik.open("statystyka.dat", std::ios::out|std::ios::trunc);
+  plik.open(nazwaPliku.c_str(), std::ios::out|std::ios::trunc);
   if (plik.good()) {
 
       for(unsigned int i=0; i<IleProb; i++)
