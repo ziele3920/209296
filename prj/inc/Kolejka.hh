@@ -10,8 +10,8 @@
  * przchowywanych zmiennych więc zawiera też definicję metod klasy.
  */
 
-#include "../inc/InterfejsADT.hh"
-#include "../inc/Pliki.hh"
+#include "InterfejsADT.hh"
+#include "Pliki.hh"
 #include <ctime>
 
 /*!

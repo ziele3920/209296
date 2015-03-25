@@ -44,3 +44,4 @@ doc/latex/Makefile
 *.toc
 doc/Makefile
 class*pdf
+*.dat

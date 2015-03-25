@@ -18,9 +18,9 @@
  *  np: "./a.out"
  */
 
-#include "../src/Lista.cpp"
-#include "../src/Stos.cpp"
-#include "../src/Kolejka.cpp"
+#include "../inc/Lista.hh"
+#include "../inc/Kolejka.hh"
+#include "../inc/Stos.hh"
 #include "../inc/Statystyka.hh"
 #include <ctime>
 

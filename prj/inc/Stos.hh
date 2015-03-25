@@ -1,3 +1,6 @@
+#ifndef STOS_HH
+#define STOS_HH
+
 /*!
  * \file
  * \brief
@@ -7,7 +10,7 @@
  * gdyż klasa ujęta jest w szablonie.
  */
 
-#include "../inc/InterfejsADT.hh"
+#include "InterfejsADT.hh"
 
 /*!
  * \brief
@@ -202,3 +205,5 @@ public:
       this -> push(3);
   }
 };
+
+#endif
