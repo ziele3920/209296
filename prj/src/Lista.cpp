@@ -179,7 +179,7 @@ public:
      * \brief
      * Usuwa element z Listy
      *
-     * Usuwa interesujący nas element z Listy.
+     * Usuwa interesujący nas element z Listy zwracając jego wartość.
      * Jeżeli chcesz usunąć pierwszy element wywołaj pole nr '0'.
      * Dla ostatniego elementu wywołaj pole nr 'Lista.size()-1'.
      *
@@ -188,37 +188,47 @@ public:
      *
      * \retval zwraca wartość danego elementu listy
      */
-  void pop(unsigned int pole) {
+  typ pop(unsigned int pole) {
     if(pole < 0 || pole > Rozmiar) {
 	std::cerr << "Nie mozna usunac! Bledny indeks. Mozesz uzyc indeksu z zakresu od 0 (poczatek) do " << Rozmiar-1 << " (koniec)" << std::endl;
+	return -1;
       }
     else if(Rozmiar == 0) {
       std::cerr << "Nie mozna usunac elementow z pustej listy!!!!" << std::endl;
+      return -1;
     }
     else if(pole == 0) {
       Element *tymczasowy = Poczatek->nastepny;
+      typ dana = Poczatek -> wartosc;
       delete Poczatek;
       Poczatek = tymczasowy;
       Rozmiar--;
+      return dana;
     }
     else if(pole == (Rozmiar-1)) {
-      Element *indeksator = Poczatek; 
+      Element *indeksator = Poczatek;
+      typ dana = Koniec -> wartosc; 
       for(unsigned int i = 0; i<(pole-1); i++)
 	indeksator = indeksator -> nastepny;
       delete Koniec;
       Koniec = indeksator;
       Rozmiar--;
+      return dana;
     }
     else {
       Element *indeksator = Poczatek;
       Element *tymczasowy;
+      typ dana;
       for(unsigned int i = 0; i<(pole-1); i++)
 	indeksator = indeksator -> nastepny;
       tymczasowy = indeksator -> nastepny;
       indeksator -> nastepny = tymczasowy -> nastepny;
+      dana = tymczasowy -> wartosc;
       delete tymczasowy;
       Rozmiar--;
+      return dana;
     }
+
 }
 
     /*!

@@ -39,7 +39,7 @@ public:
    *
    * \retval zwraca wartość danego elementu
    */
-  virtual void pop(unsigned int pole) = 0;
+  virtual typ pop(unsigned int pole) = 0;
 
   /*!
    * \brief

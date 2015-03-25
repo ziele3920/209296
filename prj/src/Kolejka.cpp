@@ -169,18 +169,25 @@ public:
      *
      * \param[in] pole - numer elementu w Kolejce którzy wyrzucimy,
      * domyślnie 0, zmiana podczas wywołania nie ma wpływu na działanie metody;
+     *
+     * \retval - zwraca usuwany element lub '-1' w przypadku bledu
      */
-  void pop(unsigned int pole = 0) {
+  typ pop(unsigned int pole = 0) {
     pole = 0;
     if(Rozmiar == 0) {
       std::cerr << "Nie mozna usunac elementow z pustej listy!!!!" << std::endl;
+      return -1;
     }
     else if(pole == 0) {
       Element *tymczasowy = Poczatek->nastepny;
+      typ dana = Poczatek -> wartosc;
       delete Poczatek;
       Poczatek = tymczasowy;
       Rozmiar--;
+      return dana;
     }
+    std::cerr << "Blad usuniecia z kolejki" << std::endl;
+    return -1;
 }
 
     /*!
