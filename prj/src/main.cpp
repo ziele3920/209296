@@ -6,12 +6,12 @@
  *
  * Program wkonuje serię 10 pomiarów czasu wykonania metody start
  * dla różncyh wielkości problemu obliczeniowego, dla każdego
- * zaimplemetowanego typu danych - Lista, Stos, Kolejka. 
+ * zaimplemetowanego typu danych - LinkLista, ListaArr1, ListaArr2x. 
  * Procedura obliczeniowa polega na utworzeniu 'objektu'
  * przechoującego n danych (stałych liczb).
  * statystykę pomiarów 
  * zapisuje do pliku o nazwie "TypDaych.dat".
- * gdzie "TypDanych" to odpowiednio Lista, Kolejka lub Stos
+ * gdzie "TypDanych" to odpowiednio Lista, ListaArr1 i ListaArr2x
  *
  * OBSŁUGA PROGRAMU:
  * Aby wywołać program należy w lini poleceń wywołać jego nazę
@@ -32,7 +32,7 @@
  *
  * Ilośc powtórzeń danej próby
  */
-#define ILOSC_POWTORZEN 1
+#define ILOSC_POWTORZEN 10
 
 /*!
  * \brief
@@ -43,7 +43,7 @@
 #define ILOSC_PROB 6
 
 int main(int argc, char *argv[]) {
-  unsigned int iloscDanych[ILOSC_PROB] = {1, 10, 1000, 50000, 100000, 1000000};
+  unsigned int iloscDanych[ILOSC_PROB] = {1, 10, 1000, 50000, 75000, 100000};
   //unsigned int maxDanych = iloscDanych[ILOSC_PROB-1];
   std::string nazwaPlikuStat[3] = {"LinkLista.dat" , "ListArr1.dat", "ListArr2x.dat"};
   std::clock_t poczatek, koniec;
