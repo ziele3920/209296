@@ -239,7 +239,7 @@ public:
    * Każdą nową daną umieszcza na końcu listy.
    *
    * \param[in] nazwaPliku - nazwa pliku z danymi
-   * \param[in[ n - ilość danych do wczytania (domyślnie 0 - wysztkie 
+   * \param[in] n - ilość danych do wczytania (domyślnie 0 - wysztkie 
    *                dane z pliku, zmiana wartości nie ma wpływu na działanie
    *                metody w aktualnej wersji
    */
