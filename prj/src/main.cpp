@@ -23,7 +23,6 @@
 #include "../inc/Stos.hh"
 #include "../inc/Statystyka.hh"
 #include "../inc/Benchmark.hh"
-#include <ctime>
 
 /*!
  * \brief
@@ -49,9 +48,6 @@ int main(int argc, char *argv[]) {
   Stos<int> *S = new Stos<int>;
   Kolejka<int> *K = new Kolejka<int>;
   Benchmark<int> *B = new Benchmark<int>(ILOSC_PROB, iloscDanych, ILOSC_POWTORZEN);
-
-  /*if(argc == 3)
-    LosujIntDoPliku(maxDanych, 10); */
 
   for(int j=0; j<3; j++) { //dla kazdego typu danych
     switch(j) {
