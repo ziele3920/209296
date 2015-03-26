@@ -138,7 +138,7 @@ public:
      *
      * \param[in] dana - dana którą chcemy dodać do listy
      * \param[in] pole - numer elementu listy na który chcemy
-     *                   dodać daną
+     *                   dodać daną (sieze() jeżeli na koniec)
      */
     void push(typ dana, unsigned int pole) {
       if(pole < 0 || pole > Rozmiar) {
@@ -147,20 +147,20 @@ public:
       else if (Poczatek == NULL) { 
 	Element *nowy = new Element(dana);
 	Poczatek = nowy; Koniec = nowy;
-	Rozmiar++;
+	++Rozmiar;
       }
       else if(pole == 0) {
 	Element *nowy = new Element(dana);
 	nowy->nastepny = Poczatek;
 	Poczatek = nowy;
-	Rozmiar++;
+	++Rozmiar;
       }
       else if(pole == (Rozmiar)) {
 	Element *nowy = new Element(dana);
 	nowy->nastepny = NULL;
 	Koniec->nastepny = nowy;
 	Koniec = nowy;
-	Rozmiar++;
+	++Rozmiar;
       }
       else {
 	Element *nowy = new Element(dana);
@@ -171,7 +171,7 @@ public:
 	tymczasowy = indeksator->nastepny;
 	indeksator->nastepny = nowy;
 	nowy->nastepny = tymczasowy;
-	Rozmiar++;
+	++Rozmiar;
       }
     }
 
@@ -239,9 +239,49 @@ public:
    * Każdą nową daną umieszcza na końcu listy.
    *
    * \param[in] nazwaPliku - nazwa pliku z danymi
-   * \param[in] n - ilość danych do wczytania
+   * \param[in[ n - ilość danych do wczytania (domyślnie 0 - wysztkie 
+   *                dane z pliku, zmiana wartości nie ma wpływu na działanie
+   *                metody w aktualnej wersji
    */
-  void WczytajDane(const char *nazwaPliku, unsigned int n) {;}
+  void WczytajDane(const char *nazwaPliku, unsigned int n=0) {
+    std::fstream plik;
+    typ wartosc;
+    size_t i = 0;
+
+    OtworzPlikIn(nazwaPliku, plik);
+    while (!plik.eof()) {
+      plik >> wartosc;
+      if(plik.fail()) {
+	std::cerr << "Blad wartosci pliku z danymi" << std::endl;
+	exit (-4);
+      }
+      this -> push(wartosc, Rozmiar);
+      ++i;
+    }
+    std::cout << "Wczytano " << i << " danych" << std::endl;
+    plik.close();
+  }
+
+  /*!
+   * \brief
+   * Wyciąga wartość elementu Listy
+   *
+   * Wyłuskuje wartość danego elementu z Listy
+   *
+   * \param[in] pole - "indeks" z którego chcemy pobrać wartość
+   *                    indeksujemy od 0!
+   *
+   * \retval - zwraca wartość elementu z danego pola lub '-1' w przypadku błedu
+   */
+  typ operator[] (size_t pole) const {
+    if(pole < Rozmiar && pole >= 0) {
+      Element *indeksator = Poczatek;
+      for (size_t i = 0; i < pole; ++i)
+	indeksator = indeksator -> nastepny;
+      return indeksator -> wartosc;
+    }
+    return -1;
+  }
 
   /*!
    * \brief
