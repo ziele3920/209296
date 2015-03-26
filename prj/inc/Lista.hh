@@ -186,7 +186,6 @@ public:
      * \param[in] pole - numer elementu Listy z którego chcemy
      *                   pobrać daną
      *
-     * \retval zwraca wartość danego elementu listy
      */
   void pop(unsigned int pole) {
     if(pole < 0 || pole > Rozmiar) {

@@ -37,7 +37,6 @@ public:
    * \param[in] pole - !!!DOSTEPNE TYLKO DLA LISTY!!! nr pola z ktore 
    *                   pobiera element
    *
-   * \retval zwraca wartość danego elementu
    */
   virtual void pop(unsigned int pole) = 0;
 
