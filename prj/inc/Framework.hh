@@ -48,6 +48,14 @@ public:
    */
   virtual void Start(const unsigned int k) = 0;
 
+  /*!
+   * \brief
+   * Zwalnia pamięć po teście
+   *
+   * Zwalnia pamięć zajmowaną przez objekty wykorzytsane do testów
+   */
+  virtual void Zwolnij() = 0;
+
 };
 
 #endif

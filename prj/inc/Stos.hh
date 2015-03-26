@@ -1,3 +1,6 @@
+#ifndef STOS_HH
+#define STOS_HH
+
 /*!
  * \file
  * \brief
@@ -7,7 +10,7 @@
  * gdyż klasa ujęta jest w szablonie.
  */
 
-#include "../inc/InterfejsADT.hh"
+#include "InterfejsADT.hh"
 
 /*!
  * \brief
@@ -144,28 +147,23 @@ public:
      *
      * \param[in] pole - numer elementu Listy z którego chcemy
      *                   pobrać daną
-     *
-     * \retval - zwraca usuwany elemnt lub w przypadku bledu '-1'
      */
-  typ pop(unsigned int pole = 0) {
+  void pop(unsigned int pole = 0) {
     if(pole < 0 || pole > Rozmiar) {
 	std::cerr << "Nie mozna usunac! Bledny indeks. Mozesz uzyc indeksu z zakresu od 0 (poczatek) do " << Rozmiar-1 << " (koniec)" << std::endl;
-	return -1;
       }
     else if(Rozmiar == 0) {
       std::cerr << "Nie mozna usunac elementow z pustej listy!!!!" << std::endl;
-      return -1;
     }
     else if(pole == 0) {
       Element *tymczasowy = Poczatek->nastepny;
-      typ dana = Poczatek -> wartosc;
       delete Poczatek;
       Poczatek = tymczasowy;
       Rozmiar--;
-      return dana;
     }
-    std::cerr << "Blad usuniecia ze stosu" << std::endl;
-    return -1;
+    else {
+      std::cerr << "Blad usuniecia ze stosu! Zaleca sie pominiecie drugiego argumentu lub podanie wartosci 0" << std::endl;
+    }
 }
 
     /*!
@@ -207,3 +205,5 @@ public:
       this -> push(3);
   }
 };
+
+#endif

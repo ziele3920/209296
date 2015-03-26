@@ -10,9 +10,8 @@
  * przchowywanych zmiennych więc zawiera też definicję metod klasy.
  */
 
-#include "../inc/InterfejsADT.hh"
-#include "../inc/Pliki.hh"
-#include <ctime>
+#include "InterfejsADT.hh"
+#include "Pliki.hh"
 
 /*!
  * \brief
@@ -138,7 +137,7 @@ public:
      *
      * \param[in] dana - dana którą chcemy dodać do listy
      * \param[in] pole - numer elementu listy na który chcemy
-     *                   dodać daną
+     *                   dodać daną (sieze() jeżeli na koniec)
      */
     void push(typ dana, unsigned int pole) {
       if(pole < 0 || pole > Rozmiar) {
@@ -147,20 +146,20 @@ public:
       else if (Poczatek == NULL) { 
 	Element *nowy = new Element(dana);
 	Poczatek = nowy; Koniec = nowy;
-	Rozmiar++;
+	++Rozmiar;
       }
       else if(pole == 0) {
 	Element *nowy = new Element(dana);
 	nowy->nastepny = Poczatek;
 	Poczatek = nowy;
-	Rozmiar++;
+	++Rozmiar;
       }
       else if(pole == (Rozmiar)) {
 	Element *nowy = new Element(dana);
 	nowy->nastepny = NULL;
 	Koniec->nastepny = nowy;
 	Koniec = nowy;
-	Rozmiar++;
+	++Rozmiar;
       }
       else {
 	Element *nowy = new Element(dana);
@@ -171,7 +170,7 @@ public:
 	tymczasowy = indeksator->nastepny;
 	indeksator->nastepny = nowy;
 	nowy->nastepny = tymczasowy;
-	Rozmiar++;
+	++Rozmiar;
       }
     }
 
@@ -179,14 +178,14 @@ public:
      * \brief
      * Usuwa element z Listy
      *
-     * Usuwa interesujący nas element z Listy zwracając jego wartość.
+     * Usuwa interesujący nas element z Listy.
      * Jeżeli chcesz usunąć pierwszy element wywołaj pole nr '0'.
      * Dla ostatniego elementu wywołaj pole nr 'Lista.size()-1'.
      *
      * \param[in] pole - numer elementu Listy z którego chcemy
      *                   pobrać daną
      *
-     * \retval zwraca wartość danego elementu listy
+     * \retval zwraca wartość danego elementu listy lub '-1' w przypadku błędu
      */
   typ pop(unsigned int pole) {
     if(pole < 0 || pole > Rozmiar) {
@@ -199,36 +198,35 @@ public:
     }
     else if(pole == 0) {
       Element *tymczasowy = Poczatek->nastepny;
-      typ dana = Poczatek -> wartosc;
+      typ wart = Poczatek -> wartosc;
       delete Poczatek;
       Poczatek = tymczasowy;
       Rozmiar--;
-      return dana;
+      return wart;
     }
     else if(pole == (Rozmiar-1)) {
-      Element *indeksator = Poczatek;
-      typ dana = Koniec -> wartosc; 
+      Element *indeksator = Poczatek; 
+      typ wart = Koniec -> wartosc;
       for(unsigned int i = 0; i<(pole-1); i++)
 	indeksator = indeksator -> nastepny;
       delete Koniec;
       Koniec = indeksator;
       Rozmiar--;
-      return dana;
+      return wart;
     }
     else {
       Element *indeksator = Poczatek;
       Element *tymczasowy;
-      typ dana;
+      typ wart;
       for(unsigned int i = 0; i<(pole-1); i++)
 	indeksator = indeksator -> nastepny;
       tymczasowy = indeksator -> nastepny;
       indeksator -> nastepny = tymczasowy -> nastepny;
-      dana = tymczasowy -> wartosc;
+      wart = tymczasowy -> wartosc;
       delete tymczasowy;
       Rozmiar--;
-      return dana;
+      return wart;
     }
-
 }
 
     /*!
@@ -249,9 +247,49 @@ public:
    * Każdą nową daną umieszcza na końcu listy.
    *
    * \param[in] nazwaPliku - nazwa pliku z danymi
-   * \param[in] n - ilość danych do wczytania
+   * \param[in] n - ilość danych do wczytania (domyślnie 0 - wysztkie 
+   *                dane z pliku, zmiana wartości nie ma wpływu na działanie
+   *                metody w aktualnej wersji
    */
-  void WczytajDane(const char *nazwaPliku, unsigned int n) {;}
+  void WczytajDane(const char *nazwaPliku, unsigned int n=0) {
+    std::fstream plik;
+    typ wartosc;
+    size_t i = 0;
+
+    OtworzPlikIn(nazwaPliku, plik);
+    while (!plik.eof()) {
+      plik >> wartosc;
+      if(plik.fail()) {
+	std::cerr << "Blad wartosci pliku z danymi" << std::endl;
+	exit (-4);
+      }
+      this -> push(wartosc, Rozmiar);
+      ++i;
+    }
+    std::cout << "Wczytano " << i << " danych" << std::endl;
+    plik.close();
+  }
+
+  /*!
+   * \brief
+   * Wyciąga wartość elementu Listy
+   *
+   * Wyłuskuje wartość danego elementu z Listy
+   *
+   * \param[in] pole - "indeks" z którego chcemy pobrać wartość
+   *                    indeksujemy od 0!
+   *
+   * \retval - zwraca wartość elementu z danego pola lub '-1' w przypadku błedu
+   */
+  typ operator[] (size_t pole) const {
+    if(pole < Rozmiar && pole >= 0) {
+      Element *indeksator = Poczatek;
+      for (size_t i = 0; i < pole; ++i)
+	indeksator = indeksator -> nastepny;
+      return indeksator -> wartosc;
+    }
+    return -1;
+  }
 
   /*!
    * \brief

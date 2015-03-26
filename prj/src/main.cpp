@@ -18,13 +18,14 @@
  *  np: "./a.out"
  */
 
-#include "../src/Lista.cpp"
-#include "../src/Stos.cpp"
-#include "../src/Kolejka.cpp"
+#include "../inc/Lista.hh"
+#include "../inc/Stos.hh"
+#include "../inc/Kolejka.hh"
+#include "../inc/ListArr1.hh"
+#include "../inc/ListArr2x.hh"
 #include "../inc/Statystyka.hh"
-#include "../src/ListaArr1.cpp"
-#include "../src/ListaArr2x.cpp"
-#include <ctime>
+#include "../inc/Benchmark.hh"
+
 
 /*!
  * \brief
@@ -40,22 +41,16 @@
  * 
  * Ilość prób = ilość rozmiarów prób
  */
-#define ILOSC_PROB 6
+#define ILOSC_PROB 3
 
 int main(int argc, char *argv[]) {
-  unsigned int iloscDanych[ILOSC_PROB] = {1, 10, 1000, 50000, 75000, 100000};
-  //unsigned int maxDanych = iloscDanych[ILOSC_PROB-1];
+  unsigned int iloscDanych[ILOSC_PROB] = {1, 10, 1000};
   std::string nazwaPlikuStat[3] = {"LinkLista.dat" , "ListArr1.dat", "ListArr2x.dat"};
-  std::clock_t poczatek, koniec;
-  double suma;
-  Statystyka stat(ILOSC_PROB, iloscDanych);
-  InterfejsADT<int> *I;
+  Framework *I;
   Lista<int> *LL = new Lista<int>;
   ListArr1<int> *LA1 = new ListArr1<int>;
   ListArr2x<int> *LA2 = new ListArr2x<int>;
-
-  /*if(argc == 3)
-    LosujIntDoPliku(maxDanych, 10); */
+  Benchmark<int> *B = new Benchmark<int>(ILOSC_PROB, iloscDanych, ILOSC_POWTORZEN);
 
   for(int j=0; j<3; j++) { 
     switch(j) {
@@ -64,21 +59,7 @@ int main(int argc, char *argv[]) {
     case 2: I = LA2; break;
     default: std::cerr << "Brak przypisania wkaznika" << std::endl;
     }
-    for(int i=0; i<ILOSC_PROB; i++) {
-      suma = 0;
-      for (int k=0; k<ILOSC_POWTORZEN; k++) {
-	poczatek = std::clock();
-	I -> Start(iloscDanych[i]);
-	koniec = std::clock();
-	suma = suma + (koniec - poczatek);
-	I -> Zwolnij();
-      }
-      stat[i] = (suma/ILOSC_POWTORZEN)/(double)(CLOCKS_PER_SEC / 1000);
-    }
-    stat.ZapiszStaty(nazwaPlikuStat[j]);
+    B -> Test(I, nazwaPlikuStat[j]);
   }
-
-  
-
 return 0;
 }

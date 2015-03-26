@@ -1,29 +1,29 @@
 /*!
  * \file
  * \brief
- * Definicja klasy ListArr1
+ * Definicja klasy ListaArr1
  *
- * Plik zawiera definicję klasy ListaArr2x ujętej w szablon typu
+ * Plik zawiera definicję klasy ListaArr1 ujętej w szablon typu
  * wraz z jej składowymi metofdami.
  */
 
-#include "../inc/InterfejsADT.hh"
+#include "InterfejsADT.hh"
 
 /*!
  * \brief
  * Modeluje pojęcie Listy (array) 
  *
  * Modeluje pojęcie Listy opartej na dynamicznej tablicy.
- * Dodając elementy zwiększa tablicę dwukrotnie, jeżeli brakuje miejsca.
-a */
+ * Dodając elementy zwiększa tablicę o 1.
+ */
 template < class typ>
-class ListArr2x : public InterfejsADT<typ> {
+class ListArr1 : public InterfejsADT<typ> {
 
   /*!
    * \brief
    * Wkaźnik na dynamiczną tablicę
    *
-   * Wskaźnik na dynamiczną tablicę tworzącą ListęArr2x
+   * Wskaźnik na dynamiczną tablicę tworzącą ListęArr1
    */
   typ *tab;
 
@@ -39,7 +39,7 @@ class ListArr2x : public InterfejsADT<typ> {
    * \brief
    * Rozmiar Listy
    *
-   * Aktualny rozmiar ListyArr2x
+   * Aktualny rozmiar ListyArr1
    */
   unsigned int RozmiarL;
 
@@ -52,7 +52,7 @@ class ListArr2x : public InterfejsADT<typ> {
    * Kontruktor alokujący tablicę jednoelementową z której będzie
    * tworzona lista
    */
-  ListArr2x() {
+  ListArr1() {
     RozmiarT = 1;
     tab = new typ[RozmiarT];
     RozmiarL = 0;
@@ -71,40 +71,23 @@ class ListArr2x : public InterfejsADT<typ> {
    */
   void push (typ dana, unsigned int pole) {
     if(pole < 0 || pole > RozmiarL) {
-      std::cerr << "Blad dodania elementu na ListArr2x. Bledny nr pola. Zakres poprawnych wartosci pola: 0 - " << RozmiarL << std::endl;
+      std::cerr << "Blad dodania elementu na ListArr1. Bledny nr pola. Zakres poprawnych wartosci pola: 0 - " << RozmiarL << std::endl;
     }
     else if(RozmiarL == 0) {
       tab[0] = dana;
       ++RozmiarL;
     }
-    else if(RozmiarL == RozmiarT) {
-      ++RozmiarL; 
-      RozmiarT = 2*RozmiarT;
+    else {
+      ++RozmiarT;
       typ *tymczasowy = new typ[RozmiarT];
-      for (unsigned int i = 0; i < pole; ++i)
+      for (size_t i = 0; i < pole; ++i)
 	tymczasowy[i] = tab[i];
       tymczasowy[pole] = dana;
-      for (unsigned int i = (pole+1); i < RozmiarL; ++i)
+      for (size_t i = (pole+1); i < RozmiarT; ++i)
 	tymczasowy[i] = tab[i-1];
       delete[] tab;
       tab = tymczasowy;
-    }
-    else {
-      if(pole == RozmiarL) {
-	tab[RozmiarL] = dana;
-	++RozmiarL;
-      }
-      else {
-	++RozmiarL;
-	typ *tymczasowy = new typ[RozmiarT];
-	for(size_t i = 0; i < pole; ++i)
-	  tymczasowy[i] = tab[i];
-	tymczasowy[pole] = tab[pole];
-	for(size_t i = (pole+1); i < RozmiarL; ++i)
-	  tymczasowy[i] = tab[i-1];
-	delete[] tab;
-	tab = tymczasowy;
-      }
+      ++RozmiarL; 
     }
   }
 
@@ -112,10 +95,9 @@ class ListArr2x : public InterfejsADT<typ> {
    * \brief
    * Pobiera element z ListyArr1
    *
-   * Pobiera element z ListyArr2x usuwając go z niej i zmniejszając rozmiar
-   * o połowę w przypadku przekroczenia stosunku 1:4 (RozmiarL:RozmiarT)
+   * Pobiera element z Listy Arr1 usuwając go z niej i zmniejszając rozmiar.
    *
-   * param[in] - pole - nr pola z którgo chcemy pobrać element (indeksowane od 0)
+   * param[in] - pole - nr pola z którgo chcemy pobrać element
    *
    * retval - zwraca wartosc pobranej danej lub '-1' w przyadku bledu
    */
@@ -128,33 +110,16 @@ class ListArr2x : public InterfejsADT<typ> {
       std::cerr << "Blad pobrania elementu. Blednny nr pola. zakres popranwych wartosci pola: 0 - " << RozmiarL-1 << std::endl;
       return -1;
     }
-    else if(4*RozmiarL >= RozmiarT ) {
-      if(pole == (RozmiarL-1)) {
-	--RozmiarL;
-	return tab[RozmiarL];
-      }
-      else {
-	--RozmiarL;
-	typ *tymczasowy = new typ[RozmiarT];
-	typ wartosc = tab[pole];
-	for(size_t i = 0; i < pole; ++i)
-	  tymczasowy[i] = tab[i];
-	for(size_t i = (pole+1); i < RozmiarL; ++i)
-	  tymczasowy[i-1] = tab[i];
-	delete[] tab;
-	tab = tymczasowy;
-	return wartosc;
-      }
-    }
-    else {           // stosunek < 1:4
-      --RozmiarL;
-      RozmiarT = RozmiarT/2;
-      typ *tymczasowy = new typ[RozmiarT];
+    else {
       typ wartosc = tab[pole];
-      for(size_t i = 0; i < pole; ++i)
+      typ *tymczasowy = new typ[RozmiarT-1];
+      for (unsigned int i = 0; i < pole; i++) 
 	tymczasowy[i] = tab[i];
-      for(size_t i = pole; i < RozmiarL; ++i)
-	tymczasowy[i] = tab[i+1];
+      for (unsigned int i = (pole+1); i < (RozmiarT-1); i++)
+	tymczasowy[i-1] = tab[i];
+      delete[] tab;
+      tab = tymczasowy;
+      RozmiarT--; RozmiarL--;
       return wartosc;
     }
     std::cout << "Blad usuniecia z listy" << std::endl;
@@ -180,7 +145,7 @@ class ListArr2x : public InterfejsADT<typ> {
    * \param[in] k - ilość elementów do wczytania
    */
   void Start(const unsigned int k) {
-    for (unsigned int i = 0; i < k; i++)
+    for (unsigned int i = 0; i < k; ++i)
       this -> push(3, this->RozmiarL);
 }
 
@@ -206,7 +171,7 @@ class ListArr2x : public InterfejsADT<typ> {
     RozmiarT=1;
     tab = new typ[RozmiarT];
     RozmiarL = 0;
-  }
+}
 
 };
 

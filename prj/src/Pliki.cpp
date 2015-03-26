@@ -16,6 +16,14 @@ void OtworzPlikIn(const char *nazwaPliku, std::fstream &plik) {
   }
 }
 
+void OtworzPlikOut(const char *nazwaPliku, std::fstream &plik) {
+  plik.open(nazwaPliku, std::ios::out|std::ios::trunc);
+  if(!plik.good()) {
+    std::cerr << "Blad utworzenia pliku: " << nazwaPliku << std::endl;
+    exit(-1);
+  }
+}
+
 void LosujIntDoPliku(const unsigned int n, const unsigned int zakres) {
 
   std::fstream plik;
@@ -29,7 +37,7 @@ void LosujIntDoPliku(const unsigned int n, const unsigned int zakres) {
   }
   else {
     std::cerr << "Blad utworzenia pliku!" << std::endl;
-    exit (-4);
+    exit (-5);
   }
 }
       
