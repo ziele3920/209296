@@ -69,7 +69,7 @@ class ListArr2x : public InterfejsADT<typ> {
    *                   jeżeli chcesz umieścić na początku listy podaj
    *                   wartość 0, na końcu warość size()
    */
-  void push (typ dana, unsigned int pole) {
+  void push (const typ dana, const unsigned int pole) {
     if(pole < 0 || pole > RozmiarL) {
       std::cerr << "Blad dodania elementu na ListArr2x. Bledny nr pola. Zakres poprawnych wartosci pola: 0 - " << RozmiarL << std::endl;
     }
@@ -119,7 +119,7 @@ class ListArr2x : public InterfejsADT<typ> {
    *
    * retval - zwraca wartosc pobranej danej lub '-1' w przyadku bledu
    */
-  typ pop(unsigned int pole) {
+  typ pop(const unsigned int pole) {
     if(RozmiarL == 0) {
       std::cerr << "Blad! Nie mozna pobrac elementu z pustej listy!" << std::endl;
       return -1;
@@ -169,7 +169,7 @@ class ListArr2x : public InterfejsADT<typ> {
    * 
    * \retval - zwraca liczbę elementów ListyArr1
    */
-  unsigned int size() { return RozmiarL; } 
+  unsigned int size() const { return RozmiarL; } 
 
   /*!
    * \brief

@@ -26,7 +26,7 @@ public:
    * \param[in] pole - !!!DOSTEPNE TYLKO DLA LISTY!!! nr pola na które
    *                   chcemy dodać element
    */
-  virtual void push(typ dana, unsigned int pole) = 0;
+  virtual void push(const typ dana, const unsigned int pole) = 0;
 
   /*!
    * \brief
@@ -39,7 +39,7 @@ public:
    *
    * \retval zwraca wartość danego elementu
    */
-  virtual typ pop(unsigned int pole) = 0;
+  virtual typ pop(const unsigned int pole) = 0;
 
   /*!
    * \brief
@@ -49,7 +49,7 @@ public:
    *
    * \retval zwraca ilość przechowywanych elementów
    */
-  virtual unsigned int size() = 0;
+  virtual unsigned int size() const = 0;
 
   /*!
    * \brief

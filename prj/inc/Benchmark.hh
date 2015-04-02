@@ -66,7 +66,7 @@ public:
  * \param[in] ileDanych - wkaźnik na tablice z licznościami kolejnych serii
  * \param[in] ilePowtorzen - ilość powtórzeń każdej serii
  */
- Benchmark(const unsigned int ileProb, unsigned int *ileDanych, unsigned int ilePowtorzen) {
+ Benchmark(const unsigned int ileProb, unsigned int* const ileDanych, const unsigned int ilePowtorzen) {
   IleProb = ileProb;
   IleDanych = ileDanych;
   IlePowtorzen = ilePowtorzen; 
@@ -83,7 +83,7 @@ public:
  * \param[in] I - objekt klasy na której zostanie przeprowadzony test
  * \param[in] nazwaPliku - nazwa pliku do którego zostaną zapisane statystyki
  */
-void Test(Framework *I,std::string nazwaPliku) {
+void Test(Framework *I,std::string const nazwaPliku) const {
   std::clock_t poczatek, koniec;
   double suma;
 

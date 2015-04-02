@@ -139,7 +139,7 @@ public:
      * \param[in] pole - numer elementu listy na który chcemy
      *                   dodać daną (sieze() jeżeli na koniec)
      */
-    void push(typ dana, unsigned int pole) {
+    void push(const typ dana, const unsigned int pole) {
       if(pole < 0 || pole > Rozmiar) {
 	std::cerr << "Nie mozna dodac elementu! Bledny indeks. Mozesz uzyc indeksu z zakresu od 0 (poczatek) do " << Rozmiar << " (koniec)" << std::endl;
       }
@@ -187,7 +187,7 @@ public:
      *
      * \retval zwraca wartość danego elementu listy lub '-1' w przypadku błędu
      */
-  typ pop(unsigned int pole) {
+  typ pop(const unsigned int pole) {
     if(pole < 0 || pole > Rozmiar) {
 	std::cerr << "Nie mozna usunac! Bledny indeks. Mozesz uzyc indeksu z zakresu od 0 (poczatek) do " << Rozmiar-1 << " (koniec)" << std::endl;
 	return -1;
@@ -237,7 +237,7 @@ public:
      *
      * \retval zwraca ilosć elementów znadjuących się aktualnie na liście
      */
-  unsigned int size() { return Rozmiar; }
+  unsigned int size() const { return Rozmiar; }
 
   /*!
    * \brief
@@ -251,7 +251,7 @@ public:
    *                dane z pliku, zmiana wartości nie ma wpływu na działanie
    *                metody w aktualnej wersji
    */
-  void WczytajDane(const char *nazwaPliku, unsigned int n=0) {
+  void WczytajDane(const char *nazwaPliku,  unsigned int n=0) {
     std::fstream plik;
     typ wartosc;
     size_t i = 0;
@@ -281,7 +281,7 @@ public:
    *
    * \retval - zwraca wartość elementu z danego pola lub '-1' w przypadku błedu
    */
-  typ operator[] (size_t pole) const {
+  typ operator[] (const size_t pole) const {
     if(pole < Rozmiar && pole >= 0) {
       Element *indeksator = Poczatek;
       for (size_t i = 0; i < pole; ++i)

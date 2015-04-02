@@ -129,7 +129,7 @@ public:
      *                   dodać daną, domyślnie - 0, zmiana argumentu wywołania
      *                   nie ma wpływu na działanie metody
      */
-    void push(typ dana, unsigned int pole = 0) {
+    void push(const typ dana, const unsigned int pole = 0) {
       pole = 0;
       if(pole == 0) {
 	Element *nowy = new Element(dana);
@@ -148,7 +148,7 @@ public:
      * \param[in] pole - numer elementu Listy z którego chcemy
      *                   pobrać daną
      */
-  void pop(unsigned int pole = 0) {
+  void pop(const unsigned int pole = 0) {
     if(pole < 0 || pole > Rozmiar) {
 	std::cerr << "Nie mozna usunac! Bledny indeks. Mozesz uzyc indeksu z zakresu od 0 (poczatek) do " << Rozmiar-1 << " (koniec)" << std::endl;
       }
@@ -174,7 +174,7 @@ public:
      *
      * \retval zwraca ilosć elementów znadjuących się aktualnie na Stosie
      */
-  unsigned int size() { return Rozmiar; }
+  unsigned int size() const { return Rozmiar; }
 
   /*!
    * \brief

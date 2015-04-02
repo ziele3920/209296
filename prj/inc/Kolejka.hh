@@ -143,7 +143,7 @@ public:
      * domyślnie koniec koelejki, zmiana arumentu podczas wywowłania
      * nie wpływa na działanie metody.
      */
-  void push(typ dana, unsigned int pole = 0) {
+  void push(const typ dana, const unsigned int pole = 0) {
     pole = Rozmiar;
       if (Poczatek == NULL) { 
 	Element *nowy = new Element(dana);
@@ -170,7 +170,7 @@ public:
      * \param[in] pole - numer elementu w Kolejce którzy wyrzucimy,
      * domyślnie 0, zmiana podczas wywołania nie ma wpływu na działanie metody;
      */
-  void pop(unsigned int pole = 0) {
+  void pop(const unsigned int pole = 0) {
     pole = 0;
     if(Rozmiar == 0) {
       std::cerr << "Nie mozna usunac elementow z pustej listy!!!!" << std::endl;
@@ -191,7 +191,7 @@ public:
      *
      * \retval zwraca ilosć elementów znadjuących się aktualnie w Kolejce
      */
-  unsigned int size() { return Rozmiar; }
+  unsigned int size() const { return Rozmiar; }
 
   /*!
    * \brief
