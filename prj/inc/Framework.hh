@@ -35,7 +35,7 @@ public:
    * \param[in] nazwaPliku - nazwa pliku z danymi
    * \param[in] n - ilość danych do wczytania
    */
-  virtual void WczytajDane(const char *nazwaPliku, unsigned int n) = 0;
+  //virtual void WczytajDane(const char *nazwaPliku, unsigned int n) = 0;
 
   /*!
    * \brief 

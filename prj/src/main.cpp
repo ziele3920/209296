@@ -18,11 +18,7 @@
  *  np: "./a.out"
  */
 
-#include "../inc/Lista.hh"
-#include "../inc/Stos.hh"
-#include "../inc/Kolejka.hh"
-#include "../inc/ListArr1.hh"
-#include "../inc/ListArr2x.hh"
+#include "../inc/TabAsoc.hh"
 #include "../inc/Statystyka.hh"
 #include "../inc/Benchmark.hh"
 
@@ -44,6 +40,27 @@
 #define ILOSC_PROB 3
 
 int main(int argc, char *argv[]) {
+
+  TabAsoc TS;
+  /*
+  int *i;
+  int k = 7;
+  int *z = &k;
+  i = z;
+  *i = 4;
+  std::cout << k << std::endl; */
+ 
+  TS["kupa"]=5;
+  std::cout << TS.operator[]("kupa") << std::endl;
+  int *i;
+  int *l; 
+  Lista<int> L;
+  L.push(7, 0);
+  i = &L.RefBegin();
+  l = &L.RefBegin();
+  *i = 5;
+  std::cout << *i << " " << *l<< std::endl; 
+  /*
   unsigned int iloscDanych[ILOSC_PROB] = {10, 25000, 75000};
   std::string nazwaPlikuStat[3] = {"LinkLista.dat", "ListArr2x.dat", "ListArr1.dat"};
   Framework *I;
@@ -60,6 +77,6 @@ int main(int argc, char *argv[]) {
     default: std::cerr << "Brak przypisania wkaznika" << std::endl;
     }
     B -> Test(I, nazwaPlikuStat[j]);
-  }
+    } */
 return 0;
 }

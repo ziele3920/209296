@@ -190,11 +190,11 @@ public:
   typ pop(const unsigned int pole) {
     if(pole < 0 || pole > Rozmiar) {
 	std::cerr << "Nie mozna usunac! Bledny indeks. Mozesz uzyc indeksu z zakresu od 0 (poczatek) do " << Rozmiar-1 << " (koniec)" << std::endl;
-	return -1;
+	return typ(-1);
       }
     else if(Rozmiar == 0) {
       std::cerr << "Nie mozna usunac elementow z pustej listy!!!!" << std::endl;
-      return -1;
+      return typ(-1);
     }
     else if(pole == 0) {
       Element *tymczasowy = Poczatek->nastepny;
@@ -251,7 +251,7 @@ public:
    *                dane z pliku, zmiana wartości nie ma wpływu na działanie
    *                metody w aktualnej wersji
    */
-  void WczytajDane(const char *nazwaPliku,  unsigned int n=0) {
+  /* void WczytajDane(const char *nazwaPliku,  unsigned int n=0) {
     std::fstream plik;
     typ wartosc;
     size_t i = 0;
@@ -268,7 +268,7 @@ public:
     }
     std::cout << "Wczytano " << i << " danych" << std::endl;
     plik.close();
-  }
+    } */
 
   /*!
    * \brief
@@ -288,7 +288,7 @@ public:
 	indeksator = indeksator -> nastepny;
       return indeksator -> wartosc;
     }
-    return -1;
+    return typ(-1);
   }
 
   /*!
@@ -308,6 +308,17 @@ public:
       this -> push(3, 0);
   }
 
+  /*!
+   * \brief
+   * Adres do pierwszego elemntu
+   *
+   * Adres do wartości pierwszego elementu listy
+   *
+   * \retval - zwraca adres do pierwszego elementu listy
+   */
+  typ &RefBegin() {
+    return Poczatek -> wartosc;
+  }
 };
 
 #endif
