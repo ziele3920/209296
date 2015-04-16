@@ -45,3 +45,4 @@ doc/latex/Makefile
 doc/Makefile
 class*pdf
 *.dat
+callgrind*

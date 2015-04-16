@@ -46,7 +46,7 @@ public:
 * tworzona lista
 */
   ListArr2x() {
-    RozmiarT = 3;
+    RozmiarT = 20;
     tab = new typ[RozmiarT];
     RozmiarL = 0;
   }
@@ -113,7 +113,7 @@ public:
   typ pop(const unsigned int pole) {
     if(RozmiarL == 0) {
       std::cerr << "Blad! Nie mozna pobrac elementu z pustej listy!" << std::endl;
-      return -1;
+      return typ(-1);
     }
     else if(pole < 0 || pole > (RozmiarL-1)) {
       std::cerr << "Blad pobrania elementu. Blednny nr pola. zakres popranwych wartosci pola: 0 - " << RozmiarL-1 << std::endl;
@@ -149,7 +149,7 @@ public:
       return wartosc;
     }
     std::cout << "Blad usuniecia z listy" << std::endl;
-    return -1;
+    return typ(-1);
   }
 /*!
 * \brief
@@ -168,7 +168,7 @@ public:
 *
 * \param[in] k - ilość elementów do wczytania
 */
-  void Start(const unsigned int k) {
+  void Start(std::fstream &plik, const unsigned int k) {
     for (unsigned int i = 0; i < k; i++)
       this -> push(3, this->RozmiarL);
 }
@@ -186,12 +186,30 @@ public:
 * \brief
 * Zwalnia pamięć
 *
-* Zwalnia pamięć zaalokowaną przez ListArr1
+* Zwalnia pamięć zaalokowaną przez ListArr2x
 */
   void Zwolnij() {
     delete[] tab;
-    RozmiarT=1;
+    RozmiarT=20;
     tab = new typ[RozmiarT];
     RozmiarL = 0;
   }
+
+  typ operator[] (unsigned int i) {
+    return tab[i];
+  }
+
+  typ &RefEnd() {
+    //if(RozmiarL > 0)
+      return tab[RozmiarL-1];
+      //std::cerr << "Blad! pusta lista, nie można odczytać elementu" << std::endl;
+    //return typ(-1);
+  }
+
+  void pokaz() {
+    for(int i =0; i< RozmiarL; i++) {
+      std::cout << tab[i] << " ";
+    }
+  }
+
 };

@@ -1,7 +1,7 @@
 a.out: main.o Statystyka.o Pliki.o TabHash.o TabAsoc.o
 	g++ -Wall -pedantic main.o Statystyka.o Pliki.o TabHash.o TabAsoc.o
 
-main.o: src/main.cpp inc/Lista.hh inc/Statystyka.hh inc/InterfejsADT.hh inc/TabHash.hh inc/TabAsoc.hh
+main.o: src/main.cpp inc/ListArr2x.hh inc/Statystyka.hh inc/InterfejsADT.hh inc/TabHash.hh inc/TabAsoc.hh
 	g++ -c -Wall -pedantic src/main.cpp
 
 Pliki.o: src/Pliki.cpp inc/Pliki.hh
@@ -18,4 +18,4 @@ TabAsoc.o: src/TabAsoc.cpp inc/TabAsoc.hh inc/TabHash.hh
 
 
 clean:
-	rm -f *.o *.dat
+	rm -f *.o

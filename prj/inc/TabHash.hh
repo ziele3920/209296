@@ -11,7 +11,7 @@
 #include <iostream>
 #include "ListArr2x.hh"
 
-#define ROZMIAR 10
+#define ROZMIAR 1
 
 /*!
  * \brief
@@ -95,7 +95,7 @@ class TabHash{
  *
  * Lista przechowująca pary: wartość - klucz o takim samym hashu
  */
-    Lista<Para> *_Tab[ROZMIAR];
+    ListArr2x<Para> *_Tab[ROZMIAR];
 
 /*!
  * \brief
@@ -109,7 +109,7 @@ class TabHash{
  *
  * \retval - zwraca wartość przechowywaną pod danym kluczem
  */
-  int DajZListy(const unsigned int pozycja, const std::string szukanyKlucz) const;
+  const int DajZListy(const unsigned int pozycja, const std::string szukanyKlucz) const;
 
 /*!
  * \brief
@@ -136,7 +136,7 @@ protected:
  *
  * \retval - zwraca wartość przechowywaną pod kluczem
  */
-  int Pobierz(const std::string szukanyKlucz) const; 
+  const int Pobierz(const std::string szukanyKlucz) const; 
 
 /*!
  * \brief
@@ -150,6 +150,7 @@ protected:
   int &Dodaj(const std::string nowyKlucz);
 
   TabHash();
+  ~TabHash();
 
 };
 

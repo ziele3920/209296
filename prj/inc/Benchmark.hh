@@ -4,6 +4,7 @@
 #include "Framework.hh"
 #include <ctime>
 #include "Statystyka.hh"
+#include "Pliki.hh"
 
 /*!
  * \file
@@ -81,24 +82,28 @@ public:
  * pomiary zapisuje do pliku podanego pez użytkownika
  *
  * \param[in] I - objekt klasy na której zostanie przeprowadzony test
- * \param[in] nazwaPliku - nazwa pliku do którego zostaną zapisane statystyki
+ * \param[in] nazwaPlikuStat - nazwa pliku do którego zostaną zapisane statystyki
+ * param[in] nazwaPlikuDane - nazwa pliku z danymi neizbędnymi do przeprowadzenia testu
  */
-void Test(Framework *I,std::string const nazwaPliku) const {
+  void Test(Framework *I, const char* const nazwaPlikuDane, std::string const nazwaPlikuStat) const {
   std::clock_t poczatek, koniec;
   double suma;
+  std::fstream plikIn;
 
   for(size_t j = 0; j < IleProb; ++j) {
   suma = 0;
     for(size_t k = 0; k < IlePowtorzen; ++k) {
       poczatek = std::clock();
-      I -> Start(IleDanych[j]);
+      OtworzPlikIn(nazwaPlikuDane, plikIn); 
+      I -> Start(plikIn, IleDanych[j]);
       koniec = std::clock();
       suma = suma + (koniec - poczatek);
       I -> Zwolnij();
+      plikIn.close();
     }
    (*stat)[j] = (suma/IlePowtorzen)/(double)(CLOCKS_PER_SEC/1000);
   }
- stat -> ZapiszStaty(nazwaPliku);
+ stat -> ZapiszStaty(nazwaPlikuStat);
  }
 };
 

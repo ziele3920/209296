@@ -9,6 +9,7 @@
  */
 
 #include "TabHash.hh"
+#include "Framework.hh"
 
 /*!
  * \brief
@@ -17,7 +18,7 @@
  * Klasa TabAsoc modeluje pojęcie Tablicy Asocjacyjnej zaimplementowanej
  * jako Tablica Haszująca
  */
-class TabAsoc : TabHash {
+class TabAsoc : TabHash, public Framework {
 
 public:
 
@@ -33,7 +34,7 @@ public:
  * \retval - zwraca wartość znajdującą sie pod danym kluczem, lub -1 
  * w przypadku gdy nie znaleziono pasującego klucza w tablicy
  */
-  int operator[] (const std::string klucz) const;
+  const int operator[] (const std::string klucz) const;
 
 /*!
  * \brief
@@ -47,6 +48,12 @@ public:
  * \retval - zwraca referencje do miejsca przechowywanai danej
  */
   int &operator[] (const std::string klucz);
+
+  const int Daj (const std::string klucz) const;
+
+  void Start(std::fstream &plik, const unsigned int k);
+  void Zwolnij();
+
 
 };
 

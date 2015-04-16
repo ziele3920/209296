@@ -30,7 +30,7 @@ void TabHash::Para::operator= (const Para p) {
 }
 
 
-int TabHash::DajZListy(const unsigned int pozycja, const std::string szukanyKlucz) const {
+const int TabHash::DajZListy(const unsigned int pozycja, const std::string szukanyKlucz) const {
   unsigned int i = 0;
   while((i <= _Tab[pozycja] -> size()) && (szukanyKlucz != _Tab[pozycja] -> operator[](i).Klucz))
     ++i;
@@ -47,12 +47,12 @@ unsigned int TabHash::H(const std::string klucz) const {
 
     unsigned int suma = 0;
     for(size_t i = 0; i < klucz.size(); ++i)
-      suma += klucz.at(i);
+      suma += (klucz.at(i)-96*0.4);
     return suma % ROZMIAR;
 }
 
 
-int TabHash::Pobierz(const std::string szukanyKlucz) const {
+const int TabHash::Pobierz(const std::string szukanyKlucz) const {
   return DajZListy(H(szukanyKlucz), szukanyKlucz);
 }
 
@@ -60,14 +60,19 @@ int TabHash::Pobierz(const std::string szukanyKlucz) const {
 int &TabHash::Dodaj(const std::string nowyKlucz) {
   unsigned int pozycja = H(nowyKlucz);
   Para p(-1, nowyKlucz);
-  _Tab[pozycja] -> push(p, 0);
-  return _Tab[pozycja] -> RefBegin().Wartosc;
-  // Para *np;
-  // np = &(_Tab[pozycja] -> RefBegin());
-  // return np -> Wartosc;
+  _Tab[pozycja] -> push(p, _Tab[pozycja] -> size());
+  return _Tab[pozycja] -> RefEnd().Wartosc;
 }
 
 TabHash::TabHash(){
   for(size_t i = 0; i<ROZMIAR; ++i)
-    _Tab[i] = new Lista<Para>;
+    _Tab[i] = new ListArr2x<Para>;
 }
+
+TabHash::~TabHash() {
+  for(size_t i = 0; i<ROZMIAR; ++i) 
+    _Tab[i] -> Zwolnij();
+
+}
+
+

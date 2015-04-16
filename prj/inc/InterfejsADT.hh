@@ -71,8 +71,9 @@ public:
    * programu, której czas wykonania zostanie zmierzony.
    *
    * \param[in] k - ilość elementów dla których mają zostać wykonane obliczenia.
+   * param[in] plik - plik z którego wczytujemy dane
    */
-  void Start(const unsigned int k) = 0;
+  void Start(std::fstream &plik, const unsigned int k) = 0;
 
   /*!
    * \brief
