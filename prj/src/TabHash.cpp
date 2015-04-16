@@ -45,9 +45,9 @@ const int TabHash::DajZListy(const unsigned int pozycja, const std::string szuka
 
 unsigned int TabHash::H(const std::string klucz) const {
 
-    unsigned int suma = 0;
+    unsigned int suma = 1;
     for(size_t i = 0; i < klucz.size(); ++i)
-      suma += (klucz.at(i)-96*0.4);
+      suma *= (klucz.at(i)-(unsigned int)(96*0.4));
     return suma % ROZMIAR;
 }
 

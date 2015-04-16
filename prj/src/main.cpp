@@ -37,10 +37,10 @@
  * 
  * Ilość prób = ilość rozmiarów prób
  */
-#define ILOSC_PROB 9
+#define ILOSC_PROB 6
 
 int main(int argc, char *argv[]) {
-  unsigned int iloscDanych[ILOSC_PROB] = {100, 400, 1000, 4000, 10000, 40000, 100000, 400000, 1000000};
+  unsigned int iloscDanych[ILOSC_PROB] = {40, 100, 400, 1000, 4000, 10000};
   std::string nazwaPlikuStat[1] = {"TabHash.dat"};
   char dane[] = "rand_dane_z_kluczem.dat";
   

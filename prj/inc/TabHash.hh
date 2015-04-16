@@ -11,8 +11,8 @@
 #include <iostream>
 #include "ListArr2x.hh"
 
-#define ROZMIAR 1000033
-
+//#define ROZMIAR 1000033
+#define ROZMIAR 1
 /*!
  * \brief
  * Tablica Haszująca

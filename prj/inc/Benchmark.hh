@@ -94,6 +94,7 @@ public:
   suma = 0;
     for(size_t k = 0; k < IlePowtorzen; ++k) {
       poczatek = std::clock();
+      I -> WczytajDane(nazwaPlikuDane, IleDanych[j]);
       OtworzPlikIn(nazwaPlikuDane, plikIn); 
       I -> Start(plikIn, IleDanych[j]);
       koniec = std::clock();
