@@ -11,7 +11,7 @@
 #include <iostream>
 #include "ListArr2x.hh"
 
-#define ROZMIAR 1
+#define ROZMIAR 1000033
 
 /*!
  * \brief

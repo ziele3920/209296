@@ -2,7 +2,7 @@
 #define FRAMEWORK_HH
 
 #include <iostream>
-#include <fstream>
+#include "Pliki.hh"
 
 /*!
  * \file
@@ -36,7 +36,7 @@ public:
    * \param[in] nazwaPliku - nazwa pliku z danymi
    * \param[in] n - ilość danych do wczytania
    */
-  //virtual void WczytajDane(const char *nazwaPliku, unsigned int n) = 0;
+  virtual void WczytajDane(const char *nazwaPliku, const  unsigned int n) = 0;
 
   /*!
    * \brief 

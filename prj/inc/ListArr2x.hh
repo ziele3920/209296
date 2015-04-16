@@ -181,7 +181,7 @@ public:
 * param[in] nazwaPliku - nazwa pliku z danymi
 * param[in] n - ilość danych do wczytania, 0 oznacza wszystkie dane z pliku
 */
-  //void WczytajDane(const char *nazwaPliku, unsigned int n) {;}
+  void WczytajDane(const char *nazwaPliku, const unsigned int n) {;}
 /*!
 * \brief
 * Zwalnia pamięć

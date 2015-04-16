@@ -51,6 +51,8 @@ public:
 
   const int Daj (const std::string klucz) const;
 
+  void WczytajDane(const char *nazwaPliku, const unsigned int n);
+
   void Start(std::fstream &plik, const unsigned int k);
   void Zwolnij();
 

@@ -23,6 +23,16 @@ void TabAsoc::Zwolnij() {
   this -> ~TabHash();
 }
 
+void TabAsoc::WczytajDane(const char *nazwaPliku, const unsigned int n) {
+  std::string nowy;
+  std::fstream plik;
+  OtworzPlikIn(nazwaPliku, plik);
+  for(size_t i  = 0; i<n; ++i) {
+    getline(plik, nowy);
+    plik >> operator[](nowy);
+  }   
+}
+
 void TabAsoc::Start(std::fstream &plik, const unsigned int k) {
   std::string nowy;
   for(size_t i  = 0; i<k; ++i) {
@@ -30,3 +40,11 @@ void TabAsoc::Start(std::fstream &plik, const unsigned int k) {
     plik >> operator[](nowy);
   }   	 
 }
+/*
+void TabAsoc::Start(std::fstream &plik, const unsigned int k) {
+  std::string klucz;
+  for(size_t i = 0; i<k; i +=2 ) {
+
+
+*/
+
