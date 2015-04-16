@@ -55,6 +55,7 @@ public:
    * Zwalnia pamięć zajmowaną przez objekty wykorzytsane do testów
    */
   virtual void Zwolnij() = 0;
+  virtual void Pokaz() = 0;
 
 };
 

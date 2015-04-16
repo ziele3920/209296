@@ -1,7 +1,7 @@
 a.out: main.o Statystyka.o Pliki.o
 	g++ -Wall -pedantic main.o Statystyka.o Pliki.o
 
-main.o: src/main.cpp inc/Lista.hh inc/Kolejka.hh inc/Stos.hh inc/Statystyka.hh inc/InterfejsADT.hh inc/ListArr2x.hh inc/ListArr1.hh
+main.o: src/main.cpp inc/Statystyka.hh inc/InterfejsADT.hh inc/ListArr2x.hh
 	g++ -c -Wall -pedantic src/main.cpp
 
 Pliki.o: src/Pliki.cpp inc/Pliki.hh

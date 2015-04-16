@@ -8,6 +8,7 @@
  */
 
 #include "InterfejsADT.hh"
+#include "Pliki.hh"
 
 /*!
  * \brief
@@ -42,6 +43,57 @@ class ListArr2x : public InterfejsADT<typ> {
    * Aktualny rozmiar ListyArr2x
    */
   unsigned int RozmiarL;
+  
+  /*!
+   * \brief
+   * Zamienia elmenty pablicy
+   *
+   * Zamienia dwa elementy tablicy o polach podanych w wywołaniu
+   * \param[in] a - indeks pierwszego elementu do zamiany
+   * \param[in] b - indeks drugiego elementu do zamiany
+   */
+  void Zamien(int a, int b) {
+    int pom;
+    pom = tab[a];
+    tab[a] = tab[b];
+    tab[b] = pom;
+  }
+    /*!
+     * \brief
+     * Porównuje el. kopca
+     *
+     * Porównuje i ustawia elementy kopca w odpowiedniej kolejności
+     *
+     * \param[in] rozmairKopca - rozmiar kopca który sortujemy
+     */
+  void Kopcuj(const int rozmiarKopca, const int i) {
+    int najwiekszy;
+
+    int lewy = 2*i+1;
+    int prawy =(2*1)+2;
+    if(lewy <= rozmiarKopca && tab[lewy] > tab[i]) 
+      najwiekszy = lewy;
+    else najwiekszy = i;
+    if (prawy <= rozmiarKopca && tab[prawy] > tab[najwiekszy]) 
+      najwiekszy = prawy;
+    if (najwiekszy != i) {
+      Zamien(najwiekszy, i);
+      Kopcuj(rozmiarKopca, najwiekszy);
+	}
+  }
+
+  /*!
+   * \brief
+   * Tworzy kopiec
+   *
+   * Tworzy kopiec z tablicy o podanym rozmiarze
+   *
+   * \param[in] rozmiar - rozmiar tablicy 
+   */
+  void BudujKopiec(const int rozmiar) {
+    for(int i = rozmiar/2-1; i >= 0; --i)
+      Kopcuj(rozmiar, i);
+  }
 
  public:
 
@@ -180,8 +232,7 @@ class ListArr2x : public InterfejsADT<typ> {
    * \param[in] k - ilość elementów do wczytania
    */
   void Start(const unsigned int k) {
-    for (unsigned int i = 0; i < k; i++)
-      this -> push(3, this->RozmiarL);
+    HeapSort(size()-1);
 }
 
   /*!
@@ -193,7 +244,16 @@ class ListArr2x : public InterfejsADT<typ> {
    * param[in] nazwaPliku - nazwa pliku z danymi
    * param[in] n - ilość danych do wczytania, 0 oznacza wszystkie dane z pliku
    */
-  void WczytajDane(const char *nazwaPliku, unsigned int n) {;}
+  void WczytajDane(const char *nazwaPliku, unsigned int n) {
+    std::fstream plik;
+    int pom;
+    OtworzPlikIn(nazwaPliku, plik);
+    for(int i = 0; i < (int)n; ++i) { 
+      plik >> pom;
+      push(pom, RozmiarL);
+    }
+    plik.close();
+  }
 
   /*!
    * \brief
@@ -207,6 +267,36 @@ class ListArr2x : public InterfejsADT<typ> {
     tab = new typ[RozmiarT];
     RozmiarL = 0;
   }
+
+  /*!
+   * \brief
+   * Sortowanie przez kopcowanie
+   *
+   * Realizuje algorytm sortowania przez kopcowanie
+   * 
+   * \param[in] rozmiar - rozmiar tablicy do posortowania
+   */
+  void HeapSort(int rozmiar) {
+    std::cout << "sortuje" << std::endl;
+    BudujKopiec(rozmiar);
+    for(int i = rozmiar; i>0; --i) {
+      Zamien(i, 0);
+      rozmiar--;
+      Kopcuj(rozmiar, 0);
+    }
+  }
+
+  /*!
+   * \brief
+   * Wyświetla elementy Listy
+   * 
+   * Metoda wypsuje na terminal elementy znajdujące się na liście
+   */
+  void Pokaz() {
+    for (size_t i = 0; i < RozmiarL; ++i)
+      std::cout << tab[i] << " " ;
+    std::cout << std::endl;
+  } 
 
 };
 
