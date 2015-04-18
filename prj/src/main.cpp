@@ -5,13 +5,20 @@
  *
  *
  * Program wkonuje serię 10 pomiarów czasu wykonania metody start
- * dla różncyh wielkości problemu obliczeniowego, dla każdego
- * zaimplemetowanego typu danych - LinkLista, ListaArr1, ListaArr2x. 
- * Procedura obliczeniowa polega na utworzeniu 'objektu'
- * przechoującego n danych (stałych liczb).
- * statystykę pomiarów 
- * zapisuje do pliku o nazwie "TypDaych.dat".
- * gdzie "TypDanych" to odpowiednio Lista, ListaArr1 i ListaArr2x
+ * (badanie czasu zapisu i odczytu do/z Tablicy Asocjacyjnej
+ * dla różncyh wielkości problemu obliczeniowego.
+ * Jako plik wynikowy otrzymujemy plik z czasami poświęconymi
+ * przez program na zapis/odczyt n danych z tablicy.
+ *
+ * WYMAGANIA:
+ * Plik z danymi musi być w formacie takim, że każda linia to kolejno 
+ * "klucz
+ *  wartość"
+ * 
+ * Klucze muszą być sześcioznakowymi ciągami stringów składających 
+ * się wyłącznie z małych liter.
+ *
+ * Wartości mogą być dowolnym intem
  *
  * OBSŁUGA PROGRAMU:
  * Aby wywołać program należy w lini poleceń wywołać jego nazę
@@ -37,10 +44,10 @@
  * 
  * Ilość prób = ilość rozmiarów prób
  */
-#define ILOSC_PROB 6
+#define ILOSC_PROB 7
 
 int main(int argc, char *argv[]) {
-  unsigned int iloscDanych[ILOSC_PROB] = {40, 100, 400, 1000, 4000, 10000};
+  unsigned int iloscDanych[ILOSC_PROB] = {40, 100, 400, 1000, 4000, 10000, 40000};
   std::string nazwaPlikuStat[1] = {"TabHash.dat"};
   char dane[] = "rand_dane_z_kluczem.dat";
   

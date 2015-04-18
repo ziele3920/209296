@@ -7,11 +7,7 @@
 
 #include "../inc/TabAsoc.hh"
 
-  const int TabAsoc::operator[] (const std::string klucz) const {
-  return Pobierz(klucz);
-}
-
-const int TabAsoc::Daj (const std::string klucz) const {
+const int TabAsoc::operator() (const std::string klucz) const {
   return Pobierz(klucz);
 }
 
@@ -51,7 +47,7 @@ void TabAsoc::Start(std::fstream &plik, const unsigned int k) {
   std::string klucz;
   for(size_t i = 0; i<k; ++i) {
     getline(plik, klucz);
-    Daj(klucz);
+    operator()(klucz);
     getline(plik, klucz);
   }
 }

@@ -24,9 +24,9 @@ public:
 
 /*!
  * \brief
- * Przeciążenie operatora[]
+ * Przeciążenie operatora()
  *
- * Przeciążenie operatora[] w celu umożliwiena odczytu wartości
+ * Przeciążenie operatora() w celu umożliwiena odczytu wartości
  * z tablicy za pomocą klucza
  *
  * \param[in] klucz - klucz pod jakim chcemy znaleźć wartość
@@ -34,7 +34,7 @@ public:
  * \retval - zwraca wartość znajdującą sie pod danym kluczem, lub -1 
  * w przypadku gdy nie znaleziono pasującego klucza w tablicy
  */
-  const int operator[] (const std::string klucz) const;
+  const int operator() (const std::string klucz) const;
 
 /*!
  * \brief
@@ -49,11 +49,37 @@ public:
  */
   int &operator[] (const std::string klucz);
 
-  const int Daj (const std::string klucz) const;
-
+/*!
+ * \brief
+ * Wczytuje dane
+ *
+ * Wcztuje dane do Tablicy Haszującej z pliku, w kótym linijka
+ * po linijce są podane kolejne wartości klucz, wartość.
+ *
+ * \para[in] nazwaPliku - nazwa pliku z danymi
+ * \param[in] n - ilość danych do wczytania
+ */
   void WczytajDane(const char *nazwaPliku, const unsigned int n);
 
+/*!
+ * \brief
+ * Obliczenia do pomiarów
+ *
+ * Metoda niezbędna do wykonania Benchmarka w celu zmierzenia czasu zapisu
+ * i odczytu z tablicy dancyh
+ *
+ * \param[in] plik - referencja do owtartego pliku z danymi
+ * \param[in] k - ilość elementów na których zostanie przeprowadzony test
+ */
   void Start(std::fstream &plik, const unsigned int k);
+
+/*!
+ * \brief
+ * Zwalnia pamięć
+ * 
+ * Zwalnia pamięć pomiędzy kolejnymi seriami testów - czyści tylko
+ * przechowywane wartości
+ */
   void Zwolnij();
 
 
