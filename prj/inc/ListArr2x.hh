@@ -52,12 +52,19 @@ class ListArr2x : public InterfejsADT<typ> {
    * \param[in] a - indeks pierwszego elementu do zamiany
    * \param[in] b - indeks drugiego elementu do zamiany
    */
-  void Zamien(int a, int b) {
+  /*  void Zamien(int a, int b) {
     int pom;
     pom = tab[a];
     tab[a] = tab[b];
     tab[b] = pom;
+    }*/
+
+void Zamien(typ &a,typ &b) {
+    typ temp = a;
+    a = b;
+    b = temp;
   }
+
     /*!
      * \brief
      * Porównuje el. kopca
@@ -66,20 +73,21 @@ class ListArr2x : public InterfejsADT<typ> {
      *
      * \param[in] rozmairKopca - rozmiar kopca który sortujemy
      */
-  void Kopcuj(const int rozmiarKopca, const int i) {
+   void Kopcuj(const int Rozmiar, const int i) {
     int najwiekszy;
+    int lewy = 2*i+1, prawy = (2*i)+2;
 
-    int lewy = 2*i+1;
-    int prawy =(2*1)+2;
-    if(lewy <= rozmiarKopca && tab[lewy] > tab[i]) 
+    if(lewy <= Rozmiar && tab[lewy] > tab[i])
       najwiekszy = lewy;
     else najwiekszy = i;
-    if (prawy <= rozmiarKopca && tab[prawy] > tab[najwiekszy]) 
+
+    if(prawy <= Rozmiar && tab[prawy] > tab[najwiekszy])
       najwiekszy = prawy;
-    if (najwiekszy != i) {
-      Zamien(najwiekszy, i);
-      Kopcuj(rozmiarKopca, najwiekszy);
-	}
+
+    if(najwiekszy!= i) {
+	Zamien(tab[najwiekszy],tab[i]);
+	Kopcuj(Rozmiar,najwiekszy);
+      }
   }
 
   /*!
@@ -90,11 +98,14 @@ class ListArr2x : public InterfejsADT<typ> {
    *
    * \param[in] rozmiar - rozmiar tablicy 
    */
-  void BudujKopiec(const int rozmiar) {
+  /* void BudujKopiec(const int rozmiar) {
     for(int i = rozmiar/2-1; i >= 0; --i)
       Kopcuj(rozmiar, i);
+      }*/
+  void BudujKopiec(const int rozmiar) {
+    for(int i = rozmiar/2 -1; i >= 0; --i)
+      Kopcuj(rozmiar, i);
   }
-
  public:
 
   /*!
@@ -162,7 +173,7 @@ class ListArr2x : public InterfejsADT<typ> {
 
   /*!
    * \brief
-   * Pobiera element z ListyArr1
+   * Pobiera element z ListyArr2x
    *
    * Pobiera element z ListyArr2x usuwając go z niej i zmniejszając rozmiar
    * o połowę w przypadku przekroczenia stosunku 1:4 (RozmiarL:RozmiarT)
@@ -277,15 +288,13 @@ class ListArr2x : public InterfejsADT<typ> {
    * \param[in] rozmiar - rozmiar tablicy do posortowania
    */
   void HeapSort(int rozmiar) {
-    std::cout << "sortuje" << std::endl;
     BudujKopiec(rozmiar);
-    for(int i = rozmiar; i>0; --i) {
-      Zamien(i, 0);
-      rozmiar--;
-      Kopcuj(rozmiar, 0);
-    }
+    for(size_t i = rozmiar; i > 0; --i) {
+      Zamien(tab[i], tab[0]);
+	--rozmiar;
+	Kopcuj(rozmiar, 0);
+      }
   }
-
   /*!
    * \brief
    * Wyświetla elementy Listy
