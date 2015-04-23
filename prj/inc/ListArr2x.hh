@@ -289,8 +289,8 @@ public:
   void Start(const unsigned int k) {
     //QSortOpt(0, size()-1);
     //InsertSort(0, size()-1);
-    //HybridSort(0, size()-1);
-    HeapSort(size()-1);
+    HybridSort(0, size()-1);
+    //HeapSort(size()-1);
 }
 
   /*!

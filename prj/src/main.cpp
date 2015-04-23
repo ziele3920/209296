@@ -29,7 +29,7 @@
  *
  * Ilośc powtórzeń danej próby
  */
-const int ILOSC_POWTORZEN = 100;
+const int ILOSC_POWTORZEN = 50;
 
 /*!
  * \brief
@@ -37,16 +37,16 @@ const int ILOSC_POWTORZEN = 100;
  * 
  * Ilość prób = ilość rozmiarów prób
  */
-const int ILOSC_PROB = 11;
+const int ILOSC_PROB = 13;
 
 int main(int argc, char *argv[]) {
-  unsigned int iloscDanych[ILOSC_PROB] = {10,10, 100, 400, 1000, 4000, 10000, 40000, 100000,400000, 1000000};
+  unsigned int iloscDanych[ILOSC_PROB] = {10,10, 100, 400, 1000, 4000, 10000, 40000, 100000,400000, 1000000, 4000000, 10000000};
   std::string nazwaPlikuStat[3] = {"LinkLista.dat", "ListArr2x.dat", "ListArr1.dat"};
   Framework *I;
   ListArr2x<int> *L = new ListArr2x<int>;
   I = L;
 
-  //LosujIntDoPliku(1000000, 100);
+  //LosujIntDoPliku(10000000, 100);
    Benchmark<int> *B = new Benchmark<int>(ILOSC_PROB, iloscDanych, ILOSC_POWTORZEN);
    B -> Test(I, nazwaPlikuStat[0]);
    
