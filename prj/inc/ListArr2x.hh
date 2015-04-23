@@ -65,6 +65,7 @@ void Zamien(typ &a,typ &b) {
      * Porównuje i ustawia elementy kopca w odpowiedniej kolejności
      *
      * \param[in] rozmiarKopca - rozmiar kopca który sortujemy
+     * \param[in] i - numer gałęzi kopca
      */
    void Kopcuj(const int rozmiarKopca, const int i) {
     int najwiekszy;
