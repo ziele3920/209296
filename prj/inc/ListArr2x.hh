@@ -1,7 +1,7 @@
 /*!
  * \file
  * \brief
- * Definicja klasy ListArr1
+ * Definicja klasy ListArr2x
  *
  * Plik zawiera definicję klasy ListaArr2x ujętej w szablon typu
  * wraz z jej składowymi metofdami.
@@ -52,13 +52,6 @@ class ListArr2x : public InterfejsADT<typ> {
    * \param[in] a - indeks pierwszego elementu do zamiany
    * \param[in] b - indeks drugiego elementu do zamiany
    */
-  /*  void Zamien(int a, int b) {
-    int pom;
-    pom = tab[a];
-    tab[a] = tab[b];
-    tab[b] = pom;
-    }*/
-
 void Zamien(typ &a,typ &b) {
     typ temp = a;
     a = b;
@@ -71,24 +64,25 @@ void Zamien(typ &a,typ &b) {
      *
      * Porównuje i ustawia elementy kopca w odpowiedniej kolejności
      *
-     * \param[in] rozmairKopca - rozmiar kopca który sortujemy
+     * \param[in] rozmiarKopca - rozmiar kopca który sortujemy
      */
-   void Kopcuj(const int Rozmiar, const int i) {
+   void Kopcuj(const int rozmiarKopca, const int i) {
     int najwiekszy;
     int lewy = 2*i+1, prawy = (2*i)+2;
 
-    if(lewy <= Rozmiar && tab[lewy] > tab[i])
+    if(lewy <= rozmiarKopca && tab[lewy] > tab[i])
       najwiekszy = lewy;
     else najwiekszy = i;
 
-    if(prawy <= Rozmiar && tab[prawy] > tab[najwiekszy])
+    if(prawy <= rozmiarKopca && tab[prawy] > tab[najwiekszy])
       najwiekszy = prawy;
 
     if(najwiekszy!= i) {
 	Zamien(tab[najwiekszy],tab[i]);
-	Kopcuj(Rozmiar,najwiekszy);
+	Kopcuj(rozmiarKopca,najwiekszy);
       }
   }
+
 
   /*!
    * \brief
@@ -98,15 +92,64 @@ void Zamien(typ &a,typ &b) {
    *
    * \param[in] rozmiar - rozmiar tablicy 
    */
-  /* void BudujKopiec(const int rozmiar) {
-    for(int i = rozmiar/2-1; i >= 0; --i)
-      Kopcuj(rozmiar, i);
-      }*/
   void BudujKopiec(const int rozmiar) {
     for(int i = rozmiar/2 -1; i >= 0; --i)
       Kopcuj(rozmiar, i);
   }
- public:
+
+  /*!
+   * \brief
+   * Znajduje mediane
+   *
+   * Znajduje mediane wartości z trzech podanych elementów Listy
+   *
+   * \param[in] a - indeks pierwszego elementu do liczenia mediany
+   * \param[in] b - indeks drugiego elementu do liczenia mediany
+   * \param[in] c - indeks trzeciego elementu do liczenia mediany
+   *
+   * \retval - zwraca indeks elementu będącego medianą z trzech wartości podanych elementów
+   */
+int MedianaTrzech(const int a, const int b, const int c) const {
+  if((tab[a] <= tab[b]) && (tab[a] <= tab[c])) {
+    if(tab[b] <= tab[c])  return b; 
+    else return c;
+  }
+
+  if((tab[b] <= tab[a]) && (tab[b] <= tab[c])) {
+    if(tab[a] <= tab[c])  return a;
+    else return c;
+  }
+  return b;
+}
+
+  /*!
+   * Partycjonowanie listy
+   *
+   * Metoda będąca częścią algorytmu Sortowania Szybkiego.
+   * Dzieli przekazany fragment listy na dwie części - 
+   * lewy z elementami mniejszymi od wybranego pivota
+   * i prawa z elementami większymi od wybranego pivota.
+   * Pivot jest dobierany za pomocą liczenia mediany z trzech elementów:
+   * pierwszego, środkowego i ostatniego.
+   *
+   * \param[in] lewy - indeks pierwszego elementu z listy do posortowania
+   * \param[in] prawy - indekst ostatniego elmentu z listy do posortowania
+   */
+  int Partition(int lewy, int prawy) {
+    typ Pivot = tab[MedianaTrzech(lewy, (lewy+prawy)/2, prawy-1)];
+    
+    while(1) {
+      while(tab[prawy] > Pivot) --prawy;
+      while(tab[lewy] < Pivot) ++lewy;
+      if( lewy < prawy ) {
+	Zamien(tab[lewy], tab[prawy]);
+	++lewy; --prawy;
+      }
+      else return prawy;
+    }
+  }
+  
+public:
 
   /*!
    * \brief
@@ -123,9 +166,9 @@ void Zamien(typ &a,typ &b) {
 
   /*!
    * \brief
-   * Dodaje element do ListyArr1
+   * Dodaje element do ListyArr2x
    *
-   * Dodaje nowy element do ListyArr1
+   * Dodaje nowy element do ListyArr2x
    *
    * \param[in] dana - element który chcemy umieścić na liście
    * \param[in] pole - nr pola na którym chcemy umieścić element
@@ -228,9 +271,9 @@ void Zamien(typ &a,typ &b) {
    * \brief
    * Wielkość listy
    *
-   * Informuje o ilości elementów znajdujących się na LiścieArr1
+   * Informuje o ilości elementów znajdujących się na LiścieArr2x
    * 
-   * \retval - zwraca liczbę elementów ListyArr1
+   * \retval - zwraca liczbę elementów ListyArr2x
    */
   unsigned int size() const { return RozmiarL; } 
 
@@ -238,11 +281,14 @@ void Zamien(typ &a,typ &b) {
    * \brief
    * Metoda testująca czas
    *
-   * Metoda testująca czas wczytania n elementów na ListęArr1
+   * Metoda testująca czas wczytania n elementów na ListęArr2x
    *
    * \param[in] k - ilość elementów do wczytania
    */
   void Start(const unsigned int k) {
+    //QSortOpt(0, size()-1);
+    //InsertSort(0, size()-1);
+    //HybridSort(0, size()-1);
     HeapSort(size()-1);
 }
 
@@ -250,7 +296,7 @@ void Zamien(typ &a,typ &b) {
    * \brief
    * Wczytuje dane z pliku
    * 
-   * Wczytuje dane z pliku do ListArr1
+   * Wczytuje dane z pliku do ListArr2x
    *
    * param[in] nazwaPliku - nazwa pliku z danymi
    * param[in] n - ilość danych do wczytania, 0 oznacza wszystkie dane z pliku
@@ -270,7 +316,7 @@ void Zamien(typ &a,typ &b) {
    * \brief
    * Zwalnia pamięć
    * 
-   * Zwalnia pamięć zaalokowaną przez ListArr1
+   * Zwalnia pamięć zaalokowaną przez ListArr2x
    */
   void Zwolnij() { 
     delete[] tab;
@@ -306,6 +352,74 @@ void Zamien(typ &a,typ &b) {
       std::cout << tab[i] << " " ;
     std::cout << std::endl;
   } 
+  /*!
+   * \brief
+   * Zoptymalizowane Szybkie Sortowanie
+   *
+   * Realizuje zoptymalizowany ze względu na wybór pivota algorytm
+   * szybkiego sortowania elementów Listy
+   *
+   * \param[in] lewy - indeks pierwszego elementu tworzącego Listę do posotrowania
+   * \param[in] prawy - indeks ostatniego elementu tworzącego Listę do posotrowania
+   */
+void QSortOpt(const int lewy, const int prawy) {
+  int nowy;
+  if(lewy < prawy) {
 
+    nowy = Partition(lewy, prawy);
+    QSortOpt(lewy, nowy);
+    QSortOpt(nowy+1, prawy);
+  }
+}
+
+
+  /*!
+   * \brief
+   * Sortowanie przez wstawianie
+   *
+   * Metoda realizuje algorytm sortowania przez wstawianie.
+   *
+   * \param[in] pierwszyElement - indekst pierwszego elementu do posortowania
+   * \param[in] ostatniElement - indeks ostatniego elementu do posortowania
+   */
+  void InsertSort(int pierwszyElement, int ostatniElement) {
+    
+    int pom, j;
+    for(int i = pierwszyElement; i<=ostatniElement; ++i){
+      pom = tab[i];
+      for(j = i -1; j >= 0 && tab[j] > pom; --j)
+	tab[j+1] = tab[j];
+      tab[j+1] = pom;
+    }
+  }
+
+  /*!
+   * \brief
+   * Sortowanie hybrydowe
+   *
+   * Metoda realizuje algorytm sortowania hybrydowego bazujący na 
+   * zoptymalizowanym ze względu na wybór pivota (mediana z trzech)
+   * algorytmowi Sortowania Szybkiego oraz jako algorytm pomocniczy
+   * wykorzystane zostało sortowanie przez wstawianie.
+   *
+   * \param[in] lewy - indeks pierwszego elementu z listy do posortowania
+   * \param[in] prawy - indeks ostatniego elementu z listy do posortowania
+   */
+  void HybridSort(int lewy, int prawy){
+    int nowy;
+    int prog = 32;
+    if(lewy < prawy) {
+	nowy = Partition(lewy, prawy);
+	if(nowy - lewy > prog)
+	  HybridSort(lewy, nowy);
+	else
+	  InsertSort(lewy, nowy);
+	if(prawy - nowy > prog)
+	  HybridSort(nowy+1, prawy);
+	else
+	  HybridSort(nowy+1, prawy);
+      }
+  }
+  
 };
 

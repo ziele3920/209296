@@ -11,4 +11,4 @@ Statystyka.o: src/Statystyka.cpp inc/Statystyka.hh
 	g++ -c -Wall -pedantic src/Statystyka.cpp
 
 clean:
-	rm -f *.o *.dat
+	rm -f *.o 

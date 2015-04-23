@@ -26,12 +26,11 @@ void Statystyka::ZapiszStaty(std::string nazwaPliku) {
   plik.open(nazwaPliku.c_str(), std::ios::out|std::ios::trunc);
   if (plik.good()) {
 
-      for(unsigned int i=0; i<IleProb; i++)
-	plik << Proba[i] << " ";
+    for(unsigned int i=0; i<IleProb; i++){
+      plik << Proba[i] << "," << Czas[i];
       plik << std::endl;
-      for(unsigned int i=0; i<IleProb; i++)
-	plik << Czas[i] << " ";
-
+    }
+      
     plik.close();
   }
   else {

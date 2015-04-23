@@ -29,7 +29,7 @@
  *
  * Ilośc powtórzeń danej próby
  */
-#define ILOSC_POWTORZEN 1
+const int ILOSC_POWTORZEN = 100;
 
 /*!
  * \brief
@@ -37,34 +37,18 @@
  * 
  * Ilość prób = ilość rozmiarów prób
  */
-#define ILOSC_PROB 1
+const int ILOSC_PROB = 11;
 
 int main(int argc, char *argv[]) {
-  unsigned int iloscDanych[ILOSC_PROB] = {10};
+  unsigned int iloscDanych[ILOSC_PROB] = {10,10, 100, 400, 1000, 4000, 10000, 40000, 100000,400000, 1000000};
   std::string nazwaPlikuStat[3] = {"LinkLista.dat", "ListArr2x.dat", "ListArr1.dat"};
   Framework *I;
   ListArr2x<int> *L = new ListArr2x<int>;
   I = L;
 
-  LosujIntDoPliku(1000, 100);
+  //LosujIntDoPliku(1000000, 100);
    Benchmark<int> *B = new Benchmark<int>(ILOSC_PROB, iloscDanych, ILOSC_POWTORZEN);
    B -> Test(I, nazwaPlikuStat[0]);
    
-
-
-  // Lista<int> *LL = new Lista<int>;
-  // ListArr1<int> *LA1 = new ListArr1<int>;
-  // ListArr2x<int> *LA2 = new ListArr2x<int>;
-  // Benchmark<int> *B = new Benchmark<int>(ILOSC_PROB, iloscDanych, ILOSC_POWTORZEN);
-
-  // for(int j=0; j<2; j++) { 
-  //   switch(j) {
-  //   case 0: I = LL; break;
-  //   case 1: I = LA2; break;
-  //   case 2: I = LA1; break;
-  //   default: std::cerr << "Brak przypisania wkaznika" << std::endl;
-  //   }
-  //   B -> Test(I, nazwaPlikuStat[j]);
-  // }
 return 0;
 }
