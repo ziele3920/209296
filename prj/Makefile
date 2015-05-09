@@ -1,5 +1,5 @@
-a.out: main.o Statystyka.o Pliki.o TabHash.o TabAsoc.o
-	g++ -Wall -pedantic main.o Statystyka.o Pliki.o TabHash.o TabAsoc.o
+a.out: main.o Statystyka.o Pliki.o TabHash.o TabAsoc.o Stoper.o
+	g++ -Wall -pedantic main.o Statystyka.o Pliki.o TabHash.o TabAsoc.o Stoper.o
 
 main.o: src/main.cpp inc/ListArr2x.hh inc/Statystyka.hh inc/InterfejsADT.hh inc/TabHash.hh inc/TabAsoc.hh
 	g++ -c -Wall -pedantic src/main.cpp
@@ -15,6 +15,9 @@ TabHash.o: src/TabHash.cpp inc/TabHash.hh
 
 TabAsoc.o: src/TabAsoc.cpp inc/TabAsoc.hh inc/TabHash.hh
 	g++ -c -Wall -pedantic src/TabAsoc.cpp
+
+Stoper.o: src/Stoper.cpp inc/Stoper.hh
+	g++ -c -Wall -pedantic src/Stoper.cpp
 
 
 clean:

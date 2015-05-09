@@ -44,18 +44,21 @@
  * 
  * Ilość prób = ilość rozmiarów prób
  */
-#define ILOSC_PROB 7
+#define ILOSC_PROB 8
 
 int main(int argc, char *argv[]) {
-  unsigned int iloscDanych[ILOSC_PROB] = {40, 100, 400, 1000, 4000, 10000, 40000};
+  unsigned int iloscDanych[ILOSC_PROB] = {40, 100, 400, 1000, 4000, 10000, 40000, 100000};
   std::string nazwaPlikuStat[1] = {"TabHash.dat"};
-  char dane[] = "rand_dane_z_kluczem.dat";
-  
-  Framework *I = new TabAsoc;
+  std::string dane = "rand_dane_z_kluczem.dat";
+  Statystyka *stat = new Statystyka(ILOSC_PROB, iloscDanych, ILOSC_POWTORZEN);
+  TabAsoc *TA = new TabAsoc;
 
   Benchmark<int> *B = new Benchmark<int>(ILOSC_PROB, iloscDanych, ILOSC_POWTORZEN);
 
-  B -> Test(I, dane,  nazwaPlikuStat[0]);
+  B -> DodajObserwatora(stat);
+  B -> Test(TA, dane);
+  stat -> ZapiszStaty(nazwaPlikuStat[0]);
+  B -> UsunObserwatora(stat);
 
 return 0;
 }
