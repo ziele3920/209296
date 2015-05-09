@@ -4,6 +4,8 @@
 #include "Framework.hh"
 #include <ctime>
 #include "Statystyka.hh"
+#include "IObserwowany.hh"
+#include <list>
 
 /*!
  * \file
@@ -21,14 +23,7 @@
  * algoytmu
  */
 template < class typ> 
-class Benchmark {
-/*!
- * \brief
- * Statystyki testu
- *
- * Pole przechowuje wyniki testów
- */
-Statystyka *stat;
+class Benchmark : public IObserwowany {
 
 /*!
  * \brief
@@ -54,6 +49,13 @@ unsigned int *IleDanych;
  */
 unsigned int IlePowtorzen;
 
+/*!
+   * \brief Lista Obserwatorow
+   *
+   * Lista aktywnych obserwatorów danego objektu
+   */
+  std::list<IObserwator*> ListaObserwatorow;
+
 public:
 
 /*!
@@ -70,7 +72,6 @@ public:
   IleProb = ileProb;
   IleDanych = ileDanych;
   IlePowtorzen = ilePowtorzen; 
-  stat = new Statystyka(IleProb, IleDanych);
 }
 
 /*!
@@ -81,30 +82,55 @@ public:
  * pomiary zapisuje do pliku podanego pez użytkownika
  *
  * \param[in] I - objekt klasy na której zostanie przeprowadzony test
- * \param[in] nazwaPliku - nazwa pliku do którego zostaną zapisane statystyki
+ * \param[in] nazwaPliku - nazwa pliku z danymi do wczytania
  */
-void Test(Framework *I,std::string const nazwaPliku) const {
-  std::clock_t poczatek, koniec;
-  double suma;
-  char naz[] = "dane.dat";
+void Test(Framework *I, std::string const nazwaPliku) {
 
   for(size_t j = 0; j < IleProb; ++j) {
-  suma = 0;
     for(size_t k = 0; k < IlePowtorzen; ++k) {
 
-      poczatek = std::clock();
-      I -> WczytajDane(naz, IleDanych[j]);
-      //I -> Pokaz();
+      I -> WczytajDane(nazwaPliku.c_str(), IleDanych[j]);
+      this -> PowiadomObserwatorow();
       I -> Start(IleDanych[j]);
-      koniec = std::clock();
-      suma = suma + (koniec - poczatek);
-      //I -> Pokaz();
+      this -> PowiadomObserwatorow();
       I -> Zwolnij();
     }
-   (*stat)[j] = (suma/IlePowtorzen)/(double)(CLOCKS_PER_SEC/1000);
   }
- stat -> ZapiszStaty(nazwaPliku);
  }
+
+/*!
+   * \brief Dodaje Obserwatora
+   *
+   * Dodaje obserwatora do listy obserwatorów danego objektu
+   *
+   * \param[in] nowyObserwator - wskaźnik na objekt będący obserwatorem
+   */
+  void DodajObserwatora(IObserwator *nowyObserwator) {
+    ListaObserwatorow.push_back(nowyObserwator);
+  }
+
+  /*!
+   * \brief Usuwa Obserwatora
+   *
+   * Usuwa danego obserwatora z listy obserwatorów
+   *
+   * \param[in] obserwator - wskaźnik na obserwatora który ma zostać usunięty
+   */
+  void UsunObserwatora(IObserwator *obserwator) {
+    ListaObserwatorow.remove(obserwator);
+  }
+
+  /*!
+   * \brief Powiadamia Obserwatorów
+   *
+   * Wywołuje u wszystkich aktywnych obserwatorów metodę Aktualizuj.
+   */
+  void PowiadomObserwatorow() {
+    std::list<IObserwator*>::iterator it = ListaObserwatorow.begin();
+    for(; it != ListaObserwatorow.end(); ++it)
+      (*it) -> Aktualizuj();
+  }
+
 };
 
 #endif

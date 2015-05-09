@@ -2,6 +2,11 @@
 #define STATYSTYKA_HH
 
 #include <iostream>
+#include "IObserwator.hh"
+#include "Stoper.hh"
+#include <fstream>
+#include <cstdlib>
+#include <string>
 
 /*!
  * \file
@@ -19,7 +24,7 @@
  * metody dla różnyuch wielkości prób.
  */
 
-class Statystyka {
+class Statystyka : public IObserwator {
 
   /*!
    * \brief
@@ -45,6 +50,41 @@ class Statystyka {
    */
   double *Czas;
 
+  /*!
+   * \brief Suma Czasu Proby
+   *
+   * Przechowuje sumę czasów pojedyńczych powtórzeń z danej próby.
+   */
+  double SumaCzasuProby;
+
+  /*!
+   * \brief Ilość Powtórzeń
+   *
+   * Przechowuje ilość wykonywanych powtórzeń pojedyńczego testu.
+   */
+  unsigned int IloscPowtorzen;
+
+  /*!
+   * \brief Licznik Powtórzeń
+   *
+   * Zlicza ilosć wykonanych powtórzeń w danej próbie.
+   */
+  unsigned int LicznikPowtorzen;
+
+  /*!
+   * \brief Licznik Prób
+   *
+   * Zlicza ilosć prób wykonanych prób.
+   */
+  unsigned int LicznikProb;
+
+  /*!
+   * \brief Stoper
+   *
+   * Stoper wykorzystywany do pomiaru czasu.
+   */
+  Stoper *MojStoper;
+
 public:
 
   /*!
@@ -57,7 +97,7 @@ public:
    * \param[in] iloscProb - liczbosc prob w ksperymencie
    * \param[in] proby - tablica z licznościami prób.
    */
-  Statystyka(const unsigned int iloscProb, unsigned int *proby);
+  Statystyka(const unsigned int iloscProb, unsigned int *proby, const unsigned int ilePowtorzen);
 
   /*!
    * \brief
@@ -65,29 +105,31 @@ public:
    *
    * Zwalnia pamięć zaalokowaną na dynamiczne tablicy przechowujące statystykę.
    */
-  ~Statystyka() {delete[] Czas; delete[] Proba;}
-
-  /*!
-   * \brief
-   * Indeksuje tablicę czasową
-   *
-   * Zwraca referencję do i-tego indeksu tablicy czasowej.
-   *
-   * \param[in] i - indeks tablicy czasowej
-   *
-   * \retval Czas[i] referencja do wybranego indeksu
-   */
-  double& operator[] (unsigned int i) {return Czas[i];}
+  ~Statystyka() {delete[] Czas; delete[] Proba; delete MojStoper;}
 
   /*!
    * \brief
    * Zapisuje statysykę do pliku
    *
-   * Zapisuje statystystykę do pliku o nazwie "statystyka.dat". 
-   * Pierwsza linia pliku to wielkości prób
-   * druga to średnie czasy wykonania podane w ms;
+   * Zapisuje statystystykę do pliku o nazwie podanej w argumencie.
+   * Plik zapisany zostaje w sposób, gdzie każda nowa linia wygląda następująco:
+   * RozmiarPróby,ŚredniCzas
+   * czas wyrażony jest w ms.
+   *
+   * \param[in] nazwaPliku - nazwa pliku do którego ma zostać zapisanaza statystyka
    */
-  void ZapiszStaty(std::string nazwaPliku);
+  void ZapiszStaty(std::string nazwaPliku) const;
+
+  /*!
+   * \brief Aktualizuj
+   *
+   * Aktualizuje pozyskiwane dane dotyczące wyników testu:
+   * Jeżeli stoper nie odlicza to uruchamia odliczanie,
+   * Jeżeli stper odlicza to go zatrzymuje i sumuje czasy powtórzeń.
+   * Gdy nasąpi wykonanie wszystkich pomiarów w próbie to uzupełnia
+   * talicę przechowywujacą średnie czasy każdej próby.
+   */
+  void Aktualizuj();
 
 };
 

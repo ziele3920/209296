@@ -45,3 +45,9 @@ doc/latex/Makefile
 doc/Makefile
 class*pdf
 *.dat
+*.config
+*.creator
+*.files
+*.includes
+*.user
+
