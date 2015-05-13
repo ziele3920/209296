@@ -42,7 +42,8 @@ const int ILOSC_PROB = 8;
 const std::string NAZWA_PLIKU_Z_DANYMI = "dane.dat";
 
 int main(int argc, char *argv[]) {
-  unsigned int iloscDanych[ILOSC_PROB] = {10,10, 100, 400, 1000, 4000, 10000, 40000};
+
+ unsigned int iloscDanych[ILOSC_PROB] = {10,10, 100, 400, 1000, 4000, 10000, 40000};
   std::string nazwaPlikuStat[3] = {"statystyka.dat"};
   ListArr2x<int> *L = new ListArr2x<int>;
 
@@ -55,6 +56,6 @@ int main(int argc, char *argv[]) {
    B -> Test(L, NAZWA_PLIKU_Z_DANYMI);
    stat -> ZapiszStaty(nazwaPlikuStat[0]);
    B -> UsunObserwatora(stat);
-   
+
 return 0;
 }

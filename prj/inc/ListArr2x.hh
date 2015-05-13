@@ -8,6 +8,7 @@
  */
 
 #include "InterfejsADT.hh"
+#include "Iterable.hh"
 #include "Pliki.hh"
 
 /*!
@@ -18,7 +19,7 @@
  * Dodając elementy zwiększa tablicę dwukrotnie, jeżeli brakuje miejsca.
 a */
 template < class typ>
-class ListArr2x : public InterfejsADT<typ> {
+class ListArr2x : public InterfejsADT<typ>, Iterable<typ> {
 
   /*!
    * \brief
@@ -44,11 +45,48 @@ class ListArr2x : public InterfejsADT<typ> {
    */
   unsigned int RozmiarL;
   
+
+  /*!
+    * \brief UsunZListy
+    *
+    * Usuwa z listy element o podanym indeksie
+    *
+    * \param[in] pole - indeks elementu do usunięcia.
+    */
+   void UsunZListy(const unsigned int pole) {
+       typ *tymczasowy = new typ[RozmiarT];
+       for(size_t i = 0; i < pole; ++i)
+           tymczasowy[i] = tab[i];
+       for(size_t i = (pole+1); i < RozmiarL; ++i)
+           tymczasowy[i-1] = tab[i];
+       delete[] tab;
+       tab = tymczasowy;
+   }
+
+   /*!
+    * \brief DodajDoListy
+    *
+    * Dodaje daną do listy na określony indeks
+    *
+    * \param dana - wartość która ma zostać umieszczona na liście
+    * \param pole - indeks pola na którym ma zostać umieszczona wartość
+    */
+   void DodajDoListy(const typ dana, const unsigned int pole) {
+       typ *tymczasowy = new typ[RozmiarT];
+       for (size_t i = 0; i < pole; ++i)
+     tymczasowy[i] = tab[i];
+       tymczasowy[pole] = dana;
+       for (size_t i = (pole+1); i < RozmiarL; ++i)
+     tymczasowy[i] = tab[i-1];
+       delete[] tab;
+       tab = tymczasowy;
+   }
+
   /*!
    * \brief
-   * Zamienia elmenty pablicy
+   * Zamienia elmenty listy
    *
-   * Zamienia dwa elementy tablicy o polach podanych w wywołaniu
+   * Zamienia dwa elementy listy o polach podanych w wywołaniu
    * \param[in] a - indeks pierwszego elementu do zamiany
    * \param[in] b - indeks drugiego elementu do zamiany
    */
@@ -187,30 +225,16 @@ public:
     else if(RozmiarL == RozmiarT) {
       ++RozmiarL; 
       RozmiarT = 2*RozmiarT;
-      typ *tymczasowy = new typ[RozmiarT];
-      for (unsigned int i = 0; i < pole; ++i)
-	tymczasowy[i] = tab[i];
-      tymczasowy[pole] = dana;
-      for (unsigned int i = (pole+1); i < RozmiarL; ++i)
-	tymczasowy[i] = tab[i-1];
-      delete[] tab;
-      tab = tymczasowy;
+      DodajDoListy(dana, pole);
     }
     else {
       if(pole == RozmiarL) {
-	tab[RozmiarL] = dana;
-	++RozmiarL;
+        tab[RozmiarL] = dana;
+        ++RozmiarL;
       }
       else {
-	++RozmiarL;
-	typ *tymczasowy = new typ[RozmiarT];
-	for(size_t i = 0; i < pole; ++i)
-	  tymczasowy[i] = tab[i];
-	tymczasowy[pole] = tab[pole];
-	for(size_t i = (pole+1); i < RozmiarL; ++i)
-	  tymczasowy[i] = tab[i-1];
-	delete[] tab;
-	tab = tymczasowy;
+        ++RozmiarL;
+        DodajDoListy(dana, pole);
       }
     }
   }
@@ -224,48 +248,31 @@ public:
    *
    * param[in] - pole - nr pola z którgo chcemy pobrać element (indeksowane od 0)
    *
-   * retval - zwraca wartosc pobranej danej lub '-1' w przyadku bledu
    */
-  typ pop(const unsigned int pole) {
+  void pop(const unsigned int pole) {
     if(RozmiarL == 0) {
-      std::cerr << "Blad! Nie mozna pobrac elementu z pustej listy!" << std::endl;
-      return -1;
+      std::cerr << "Blad! Nie mozna usunac elementu z pustej listy!" << std::endl;
+      return;
     }
     else if(pole < 0 || pole > (RozmiarL-1)) {
-      std::cerr << "Blad pobrania elementu. Blednny nr pola. zakres popranwych wartosci pola: 0 - " << RozmiarL-1 << std::endl;
-      return -1;
+      std::cerr << "Blad usuwania elementu. Blednny nr pola. zakres popranwych wartosci pola: 0 - " << RozmiarL-1 << std::endl;
+      return;
     }
-    else if(4*RozmiarL >= RozmiarT ) {
-      if(pole == (RozmiarL-1)) {
-	--RozmiarL;
-	return tab[RozmiarL];
-      }
-      else {
-	--RozmiarL;
-	typ *tymczasowy = new typ[RozmiarT];
-	typ wartosc = tab[pole];
-	for(size_t i = 0; i < pole; ++i)
-	  tymczasowy[i] = tab[i];
-	for(size_t i = (pole+1); i < RozmiarL; ++i)
-	  tymczasowy[i-1] = tab[i];
-	delete[] tab;
-	tab = tymczasowy;
-	return wartosc;
-      }
-    }
-    else {           // stosunek < 1:4
-      --RozmiarL;
-      RozmiarT = RozmiarT/2;
-      typ *tymczasowy = new typ[RozmiarT];
-      typ wartosc = tab[pole];
-      for(size_t i = 0; i < pole; ++i)
-	tymczasowy[i] = tab[i];
-      for(size_t i = pole; i < RozmiarL; ++i)
-	tymczasowy[i] = tab[i+1];
-      return wartosc;
+
+    else { // poprawny indeks pola do usunięcia
+        if(pole == (RozmiarL-1) && (4*RozmiarL >= RozmiarT)) {  // usuwa z końca
+            --RozmiarL;
+            return;
+        }
+        else {
+            --RozmiarL;
+            if(4*RozmiarL < RozmiarT) RozmiarT = RozmiarT/2; // stosunek < 1:4
+            UsunZListy(pole);
+            return;
+        }
     }
     std::cout << "Blad usuniecia z listy" << std::endl;
-    return -1;
+    return;
   }
 
   /*!
@@ -280,9 +287,9 @@ public:
 
   /*!
    * \brief
-   * Metoda testująca czas
+   * Metoda do testów
    *
-   * Metoda testująca czas wczytania n elementów na ListęArr2x
+   * Metoda, której czas wykonanai ma zostać zmierzony
    *
    * \param[in] k - ilość elementów do wczytania
    */
@@ -422,5 +429,18 @@ void QSortOpt(const int lewy, const int prawy) {
       }
   }
   
+  /*!
+   * \brief operator []
+   *
+   * Przeciążenie opratora[] w celu umożliwienia przeglądania
+   * zawrtości listy. Indeksujemy od 0.
+   *
+   * \param[in] indeks - indeks elementu, którego wartość ma zostać odczytana
+   * \retval zwraca wartość znajdującą się na danym indeksie listy
+   */
+  typ operator[] (unsigned int indeks) {
+      return tab[indeks];
+  }
+
 };
 

@@ -37,9 +37,8 @@ public:
    * \param[in] pole - !!!DOSTEPNE TYLKO DLA LISTY!!! nr pola z ktore 
    *                   pobiera element
    *
-   * \retval zwraca wartość danego elementu
    */
-  virtual typ pop(const unsigned int pole) = 0;
+  virtual void pop(const unsigned int pole) = 0;
 
   /*!
    * \brief
