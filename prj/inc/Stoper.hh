@@ -1,11 +1,13 @@
+#ifndef STOPER_HH
+#define STOPER_HH
+
 /*!
  * \brief Klasa Stoper
  *
  * Plik zawiera definicję klasy Stoper.
  * */
 
-#ifndef STOPER_HH
-#define STOPER_HH
+
 
 #include <iostream>
 #include <ctime>

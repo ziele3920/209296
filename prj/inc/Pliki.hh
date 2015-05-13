@@ -1,3 +1,6 @@
+#ifndef PLIKI_HH
+#define PLIKI_HH
+
 /*!
  * \file
  * \brief
@@ -5,8 +8,7 @@
  *
  * Plik zawiera deklaracje funkcji zwiazanych z obsuga plikow
  */
-#ifndef PLIKI_HH
-#define PLIKI_HH
+
 #include <iostream>
 #include <fstream>
 #include <cstdlib>

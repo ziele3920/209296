@@ -1,3 +1,6 @@
+#ifndef LISTARR2X_HH
+#define LISTARR2X_HH
+
 /*!
  * \file
  * \brief
@@ -19,7 +22,7 @@
  * Dodając elementy zwiększa tablicę dwukrotnie, jeżeli brakuje miejsca.
 a */
 template < class typ>
-class ListArr2x : public InterfejsADT<typ>, Iterable<typ> {
+class ListArr2x : public InterfejsADT<typ>, public Iterable<typ> {
 
   /*!
    * \brief
@@ -82,111 +85,6 @@ class ListArr2x : public InterfejsADT<typ>, Iterable<typ> {
        tab = tymczasowy;
    }
 
-  /*!
-   * \brief
-   * Zamienia elmenty listy
-   *
-   * Zamienia dwa elementy listy o polach podanych w wywołaniu
-   * \param[in] a - indeks pierwszego elementu do zamiany
-   * \param[in] b - indeks drugiego elementu do zamiany
-   */
-void Zamien(typ &a,typ &b) {
-    typ temp = a;
-    a = b;
-    b = temp;
-  }
-
-    /*!
-     * \brief
-     * Porównuje el. kopca
-     *
-     * Porównuje i ustawia elementy kopca w odpowiedniej kolejności
-     *
-     * \param[in] rozmiarKopca - rozmiar kopca który sortujemy
-     * \param[in] i - numer gałęzi kopca
-     */
-   void Kopcuj(const int rozmiarKopca, const int i) {
-    int najwiekszy;
-    int lewy = 2*i+1, prawy = (2*i)+2;
-
-    if(lewy <= rozmiarKopca && tab[lewy] > tab[i])
-      najwiekszy = lewy;
-    else najwiekszy = i;
-
-    if(prawy <= rozmiarKopca && tab[prawy] > tab[najwiekszy])
-      najwiekszy = prawy;
-
-    if(najwiekszy!= i) {
-	Zamien(tab[najwiekszy],tab[i]);
-	Kopcuj(rozmiarKopca,najwiekszy);
-      }
-  }
-
-
-  /*!
-   * \brief
-   * Tworzy kopiec
-   *
-   * Tworzy kopiec z tablicy o podanym rozmiarze
-   *
-   * \param[in] rozmiar - rozmiar tablicy 
-   */
-  void BudujKopiec(const int rozmiar) {
-    for(int i = rozmiar/2 -1; i >= 0; --i)
-      Kopcuj(rozmiar, i);
-  }
-
-  /*!
-   * \brief
-   * Znajduje mediane
-   *
-   * Znajduje mediane wartości z trzech podanych elementów Listy
-   *
-   * \param[in] a - indeks pierwszego elementu do liczenia mediany
-   * \param[in] b - indeks drugiego elementu do liczenia mediany
-   * \param[in] c - indeks trzeciego elementu do liczenia mediany
-   *
-   * \retval - zwraca indeks elementu będącego medianą z trzech wartości podanych elementów
-   */
-int MedianaTrzech(const int a, const int b, const int c) const {
-  if((tab[a] <= tab[b]) && (tab[a] <= tab[c])) {
-    if(tab[b] <= tab[c])  return b; 
-    else return c;
-  }
-
-  if((tab[b] <= tab[a]) && (tab[b] <= tab[c])) {
-    if(tab[a] <= tab[c])  return a;
-    else return c;
-  }
-  return b;
-}
-
-  /*!
-   * Partycjonowanie listy
-   *
-   * Metoda będąca częścią algorytmu Sortowania Szybkiego.
-   * Dzieli przekazany fragment listy na dwie części - 
-   * lewy z elementami mniejszymi od wybranego pivota
-   * i prawa z elementami większymi od wybranego pivota.
-   * Pivot jest dobierany za pomocą liczenia mediany z trzech elementów:
-   * pierwszego, środkowego i ostatniego.
-   *
-   * \param[in] lewy - indeks pierwszego elementu z listy do posortowania
-   * \param[in] prawy - indekst ostatniego elmentu z listy do posortowania
-   */
-  int Partition(int lewy, int prawy) {
-    typ Pivot = tab[MedianaTrzech(lewy, (lewy+prawy)/2, prawy-1)];
-    
-    while(1) {
-      while(tab[prawy] > Pivot) --prawy;
-      while(tab[lewy] < Pivot) ++lewy;
-      if( lewy < prawy ) {
-	Zamien(tab[lewy], tab[prawy]);
-	++lewy; --prawy;
-      }
-      else return prawy;
-    }
-  }
   
 public:
 
@@ -294,10 +192,7 @@ public:
    * \param[in] k - ilość elementów do wczytania
    */
   void Start(const unsigned int k) {
-    //QSortOpt(0, size()-1);
-    //InsertSort(0, size()-1);
-    HybridSort(0, size()-1);
-    //HeapSort(size()-1);
+    //HybridSort(0, size()-1);
 }
 
   /*!
@@ -333,22 +228,7 @@ public:
     RozmiarL = 0;
   }
 
-  /*!
-   * \brief
-   * Sortowanie przez kopcowanie
-   *
-   * Realizuje algorytm sortowania przez kopcowanie
-   * 
-   * \param[in] rozmiar - rozmiar tablicy do posortowania
-   */
-  void HeapSort(int rozmiar) {
-    BudujKopiec(rozmiar);
-    for(size_t i = rozmiar; i > 0; --i) {
-      Zamien(tab[i], tab[0]);
-	--rozmiar;
-	Kopcuj(rozmiar, 0);
-      }
-  }
+
   /*!
    * \brief
    * Wyświetla elementy Listy
@@ -360,74 +240,7 @@ public:
       std::cout << tab[i] << " " ;
     std::cout << std::endl;
   } 
-  /*!
-   * \brief
-   * Zoptymalizowane Szybkie Sortowanie
-   *
-   * Realizuje zoptymalizowany ze względu na wybór pivota algorytm
-   * szybkiego sortowania elementów Listy
-   *
-   * \param[in] lewy - indeks pierwszego elementu tworzącego Listę do posotrowania
-   * \param[in] prawy - indeks ostatniego elementu tworzącego Listę do posotrowania
-   */
-void QSortOpt(const int lewy, const int prawy) {
-  int nowy;
-  if(lewy < prawy) {
 
-    nowy = Partition(lewy, prawy);
-    QSortOpt(lewy, nowy);
-    QSortOpt(nowy+1, prawy);
-  }
-}
-
-
-  /*!
-   * \brief
-   * Sortowanie przez wstawianie
-   *
-   * Metoda realizuje algorytm sortowania przez wstawianie.
-   *
-   * \param[in] pierwszyElement - indekst pierwszego elementu do posortowania
-   * \param[in] ostatniElement - indeks ostatniego elementu do posortowania
-   */
-  void InsertSort(int pierwszyElement, int ostatniElement) {
-    
-    int pom, j;
-    for(int i = pierwszyElement; i<=ostatniElement; ++i){
-      pom = tab[i];
-      for(j = i -1; j >= 0 && tab[j] > pom; --j)
-	tab[j+1] = tab[j];
-      tab[j+1] = pom;
-    }
-  }
-
-  /*!
-   * \brief
-   * Sortowanie hybrydowe
-   *
-   * Metoda realizuje algorytm sortowania hybrydowego bazujący na 
-   * zoptymalizowanym ze względu na wybór pivota (mediana z trzech)
-   * algorytmowi Sortowania Szybkiego oraz jako algorytm pomocniczy
-   * wykorzystane zostało sortowanie przez wstawianie.
-   *
-   * \param[in] lewy - indeks pierwszego elementu z listy do posortowania
-   * \param[in] prawy - indeks ostatniego elementu z listy do posortowania
-   */
-  void HybridSort(int lewy, int prawy){
-    int nowy;
-    int prog = 32;
-    if(lewy < prawy) {
-	nowy = Partition(lewy, prawy);
-	if(nowy - lewy > prog)
-	  HybridSort(lewy, nowy);
-	else
-	  InsertSort(lewy, nowy);
-	if(prawy - nowy > prog)
-	  HybridSort(nowy+1, prawy);
-	else
-	  HybridSort(nowy+1, prawy);
-      }
-  }
   
   /*!
    * \brief operator []
@@ -438,9 +251,24 @@ void QSortOpt(const int lewy, const int prawy) {
    * \param[in] indeks - indeks elementu, którego wartość ma zostać odczytana
    * \retval zwraca wartość znajdującą się na danym indeksie listy
    */
-  typ operator[] (unsigned int indeks) {
+  typ operator[] (unsigned int indeks) const {
       return tab[indeks];
+  }
+
+  /*!
+   * \brief
+   * Zamienia elmenty listy
+   *
+   * Zamienia dwa elementy listy o polach podanych w wywołaniu
+   * \param[in] a - indeks pierwszego elementu do zamiany
+   * \param[in] b - indeks drugiego elementu do zamiany
+   */
+void Zamien(int a, int b) {
+    typ temp = tab[a];
+    tab[a] = tab[b];
+    tab[b] = temp;
   }
 
 };
 
+#endif

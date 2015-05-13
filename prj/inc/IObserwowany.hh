@@ -1,11 +1,13 @@
+#ifndef IOBSERwOWANY_HH
+#define IOBSERWOWANY_HH
+
 /*!
  * \brief Interfejs obserwowanego
  *
  * W pliku zawarta jest definicja interfejsu obserwowanego
  */
 
-#ifndef IOBSERwOWANY_HH
-#define IOBSERWOWANY_HH
+
 
 #include "IObserwator.hh"
 

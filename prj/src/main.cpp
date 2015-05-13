@@ -4,15 +4,8 @@
  * Moduł główny programu
  *
  *
- * Program wkonuje serię 10 pomiarów czasu wykonania metody start
- * dla różncyh wielkości problemu obliczeniowego, dla każdego
- * zaimplemetowanego typu danych - LinkLista, ListaArr1, ListaArr2x. 
- * Procedura obliczeniowa polega na utworzeniu 'objektu'
- * przechoującego n danych (stałych liczb).
- * statystykę pomiarów 
- * zapisuje do pliku o nazwie "TypDaych.dat".
- * gdzie "TypDanych" to odpowiednio Lista, ListaArr1 i ListaArr2x
- *
+ * Program wkonuje serię 50 pomiarów czasu wykonania metody start
+ * dla różncyh wielkości problemu obliczeniowego.
  * OBSŁUGA PROGRAMU:
  * Aby wywołać program należy w lini poleceń wywołać jego nazę
  *  np: "./a.out"
@@ -22,6 +15,10 @@
 #include "../inc/Statystyka.hh"
 #include "../inc/Benchmark.hh"
 #include "../inc/Pliki.hh"
+//#include "../inc/QuickSortOpt.hh"
+#include "../inc/InsertSort.hh"
+#include "../inc/HeapSort.hh"
+#include "../inc/HybridSort.hh"
 
 /*!
  * \brief
@@ -37,13 +34,19 @@ const int ILOSC_POWTORZEN = 50;
  * 
  * Ilość prób = ilość rozmiarów prób
  */
-const int ILOSC_PROB = 8;
+const int ILOSC_PROB = 9;
 
 const std::string NAZWA_PLIKU_Z_DANYMI = "dane.dat";
 
 int main(int argc, char *argv[]) {
 
- unsigned int iloscDanych[ILOSC_PROB] = {10,10, 100, 400, 1000, 4000, 10000, 40000};
+ ListArr2x<int> L;
+ HybridSort<int> QS;
+ L.WczytajDane(NAZWA_PLIKU_Z_DANYMI.c_str(), 10);
+ L.Pokaz();
+ QS.Sort(0, L.size()-1, L);
+ L.Pokaz();
+ /*unsigned int iloscDanych[ILOSC_PROB] = {10,10, 100, 400, 1000, 4000, 10000, 40000, 100000};
   std::string nazwaPlikuStat[3] = {"statystyka.dat"};
   ListArr2x<int> *L = new ListArr2x<int>;
 
@@ -56,6 +59,6 @@ int main(int argc, char *argv[]) {
    B -> Test(L, NAZWA_PLIKU_Z_DANYMI);
    stat -> ZapiszStaty(nazwaPlikuStat[0]);
    B -> UsunObserwatora(stat);
-
+*/
 return 0;
 }

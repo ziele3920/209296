@@ -1,11 +1,13 @@
+#ifndef IOBSERWATOR_HH
+#define IOBSERWATOR_HH
+
 /*!
  * \brief Klasa IObserwator
  *
  * Plik zawira definicję klasy IObsereator.
  */
 
-#ifndef IOBSERWATOR_HH
-#define IOBSERWATOR_HH
+
 
 /*!
  * \brief The IObserwator class
