@@ -96,6 +96,7 @@ public:
    *
    * \param[in] iloscProb - liczbosc prob w ksperymencie
    * \param[in] proby - tablica z licznościami prób.
+   * \param[in] ilePowtorzen - ilość powtórzeń każdego rozmiaru próby
    */
   Statystyka(const unsigned int iloscProb, unsigned int *proby, const unsigned int ilePowtorzen);
 

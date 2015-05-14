@@ -39,7 +39,7 @@ public:
    *
    * \retval zwraca wartość danego elementu
    */
-  virtual typ pop(const unsigned int pole) = 0;
+  virtual void pop(const unsigned int pole) = 0;
 
   /*!
    * \brief
@@ -71,7 +71,7 @@ public:
    * programu, której czas wykonania zostanie zmierzony.
    *
    * \param[in] k - ilość elementów dla których mają zostać wykonane obliczenia.
-   * param[in] plik - plik z którego wczytujemy dane
+   * \param[in] plik - plik z którego wczytujemy dane
    */
   void Start(std::fstream &plik, const unsigned int k) = 0;
 

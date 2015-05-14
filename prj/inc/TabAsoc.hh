@@ -56,7 +56,7 @@ public:
  * Wcztuje dane do Tablicy Haszującej z pliku, w kótym linijka
  * po linijce są podane kolejne wartości klucz, wartość.
  *
- * \para[in] nazwaPliku - nazwa pliku z danymi
+ * \param[in] nazwaPliku - nazwa pliku z danymi
  * \param[in] n - ilość danych do wczytania
  */
   void WczytajDane(const char *nazwaPliku, const unsigned int n);

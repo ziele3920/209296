@@ -54,7 +54,7 @@ class TabHash{
  * Tworzy nowy objekt inicjując go podanymi wartościami
  *
  * \param[in] wart - wartość, którą inicjujemy objekt
- * \param[in[ key - klucz, którym inicjujemy objekt
+ * \param[in] key - klucz, którym inicjujemy objekt
  */  
     Para(const int wart, const std::string key);
 
@@ -144,8 +144,7 @@ protected:
  *
  * Dodaje element (daną oraz jej klucz) do Tablicy Haszującej
  *
- * \param[in] - nowaDana - wartość którą dodajemy
- * \param[in] - nowyKlucz - klucz pod którym przechowujemy daną
+ * \param[in] nowyKlucz - klucz pod którym przechowujemy daną
  */
   int &Dodaj(const std::string nowyKlucz);
 
