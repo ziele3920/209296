@@ -14,7 +14,7 @@
 #include "../inc/Statystyka.hh"
 //#include "../inc/Benchmark.hh"
 #include "../inc/Pliki.hh"
-
+#include "../inc/DrzewoBinarne.hh"
 /*!
  * \brief
  * Ilośc powtórzeń danej próby

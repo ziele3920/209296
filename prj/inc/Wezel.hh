@@ -18,14 +18,15 @@
  * Struktura modeluje pojęcie węzła - elementu drzewa, na który składa się
  * wartość, rodzic, lewy potomek i prawy potomek.
  */
-template < class typ<>
+template < class typ >
 struct Wezel {
+
   /*!
    * \brief Przechowywana wartość
    *
    * Pole przechowuje wartość elementu znajdującego się w danym węźle.
    */
-  typ Wartosc;
+  typ Dana;
 
   /*!
    * \brief Rodzic danego węzła.
