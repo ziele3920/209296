@@ -47,7 +47,16 @@ struct WezelAVL {
     int WspRownowagi;
 
     WezelAVL() {
+        Rodzic = NULL;
+        Lewy = NULL;
+        Prawy = NULL;
         WspRownowagi = 0;
+    }
+
+    ~WezelAVL() {
+        Rodzic = NULL;
+        Lewy = NULL;
+        Prawy = NULL;
     }
 
 };

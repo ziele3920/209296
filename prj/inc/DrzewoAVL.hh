@@ -224,7 +224,7 @@ class DrzewoAVL : public IDrzew<typ>{
      *
      * \param wezel - węzeł od którego zaczyna się czyszczenie
      */
-    void Czysc(Wezel<typ> *wezel) {
+    void Czysc(WezelAVL<typ> *wezel) {
         if(wezel != NULL) {
           Czysc(wezel ->Lewy);
           Czysc(wezel ->Prawy);

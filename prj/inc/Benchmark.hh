@@ -90,6 +90,7 @@ void Test(ITestable &I, const std::string &nazwaPliku) {
   for(size_t j = 0; j < IleProb; ++j) {
     for(size_t k = 0; k < IlePowtorzen; ++k) {
 
+      I.WczytajDane(nazwaPliku, IleDanych[j]);
       this -> PowiadomObserwatorow();
       I.Start(IleDanych[j], nazwaPliku);
       this -> PowiadomObserwatorow();
