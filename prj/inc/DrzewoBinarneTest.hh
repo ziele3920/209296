@@ -52,7 +52,7 @@ public:
      * \param[in] nazwaPliku - nazwa pliku z danymi
      */
     void Start(const unsigned int k, std::string const nazwaPliku ) {
-        //WczytajDane(nazwaPliku, k);
+          //WczytajDane(nazwaPliku, k);
         std::fstream plik;
         typ tmp;
         OtworzPlikIn(nazwaPliku.c_str(), plik);

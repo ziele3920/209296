@@ -37,12 +37,13 @@ const std::string NAZWA_PLIKU_Z_DANYMI = "dane.dat";
 
 int main(int argc, char *argv[]) {
 
- unsigned int iloscDanych[ILOSC_PROB] = {10,10, 100, 400, 1000, 4000, 10000, 40000,  100000, 400000, 1000000};//, 4000000, 10000000};
+ unsigned int iloscDanych[ILOSC_PROB] = {10,10, 100, 400, 1000, 4000, 10000, 40000,  100000, 400000, 1000000};
   std::string nazwaPlikuStat = "statystyka.dat";
 
  Statystyka *stat = new Statystyka(ILOSC_PROB, iloscDanych, ILOSC_POWTORZEN);
 
 
+   //DrzewoBinarneTest<int> DBT;
    DrzewoAVLTest<int> DBT;
 
   Benchmark<int> *B = new Benchmark<int>(ILOSC_PROB, iloscDanych, ILOSC_POWTORZEN);
