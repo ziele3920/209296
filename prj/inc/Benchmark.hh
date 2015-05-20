@@ -1,12 +1,11 @@
 #ifndef BENCHMARK_HH
 #define BENCHMARK_HH
 
-#include "InterfejsADT.hh"
 #include <ctime>
 #include "Statystyka.hh"
 #include "IObserwowany.hh"
 #include <list>
-#include "../inc/ISort.hh"
+#include "ITestable.hh"
 
 /*!
  * \file
@@ -82,19 +81,17 @@ public:
  * Metoda testuje algorytm w okreslonej liczbie serii i powtórzeniach
  * pomiary zapisuje do pliku podanego pez użytkownika
  *
- * \param[in] I - objekt klasy implementującej InterfesjADT na której zostanie przeprowadzony test
+ * \param[in] I - objekt klasy implementującej ITestable na której zostanie przeprowadzony test
  * \param[in] nazwaPliku - nazwa pliku z danymi do wczytania
- * \param[in] sort - referencja do objektu sortującego
- * \param[in] IT - referencja do obiektu implementującego Iterable
  */
-void Test(InterfejsADT<typ> &I, std::string const nazwaPliku, ISort<typ> &sort, Iterable<typ> &IT) {
+void Test(ITestable &I, const std::string &nazwaPliku) {
+
 
   for(size_t j = 0; j < IleProb; ++j) {
     for(size_t k = 0; k < IlePowtorzen; ++k) {
 
-      I.WczytajDane(nazwaPliku.c_str(), IleDanych[j]);
       this -> PowiadomObserwatorow();
-      sort.Sort(0, IleDanych[j]-1, IT);
+      I.Start(IleDanych[j], nazwaPliku);
       this -> PowiadomObserwatorow();
       I.Zwolnij();
     }

@@ -47,6 +47,18 @@ void OtworzPlikOut(const char *nazwaPliku, std::fstream &plik);
  * \param[in] n - ilość liczb do zapisania
  * \param[in] zakres - górny zakres wartości liczb
  */
-void LosujIntDoPliku(const unsigned int n, const unsigned int zakres);
+void LosujIntRandDoPliku(const unsigned int n, const unsigned int zakres);
+
+/*!
+ * \brief
+ * Zapisuje n losowych liczb(int) do pliku
+ *
+ * Losuje n liczb z zakresu od 1 do podonago przez użytwkonika
+ * następnie zapisuje wylosowane dane do pliku o nazwe "dane.dat"
+ *
+ * \param[in] n - ilość liczb do zapisania
+ * \param[in] zakres - górny zakres wartości liczb
+ */
+void LosujIntRosnacoDoPliku(const unsigned int n, const unsigned int zakres);
 
 #endif

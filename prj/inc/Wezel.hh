@@ -57,5 +57,11 @@ struct Wezel {
     Prawy = NULL;
   }
 
+  ~Wezel() {
+      Rodzic = NULL;
+      Lewy = NULL;
+      Prawy = NULL;
+  }
+
 };
 #endif 

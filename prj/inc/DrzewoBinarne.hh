@@ -8,7 +8,6 @@
  */
 
 #include "IDrzew.hh"
-#include "Wezel.hh"
 
 /*!
  * \brief Klasa DrzewoBinarne
@@ -42,7 +41,7 @@ class DrzewoBinarne : public IDrzew<typ>{
    * \param[in] poszukiwacz - węzeł startowy poszukwiań
    * \retval - wskaźnik na węzeł przechowujący najmniejszą wartość
    */
-  Wezel<typ> FindMin(Wezel<typ> *poszukiwacz) {
+  Wezel<typ>* FindMin(Wezel<typ> *poszukiwacz) {
       while(poszukiwacz -> Lewy != NULL)
           poszukiwacz = poszukiwacz -> Lewy;
       return poszukiwacz;
@@ -56,7 +55,7 @@ class DrzewoBinarne : public IDrzew<typ>{
    *
    * \retval wskaźnik na węzeł będący poprzednikiem
    */
-  Wezel<typ> FindSuccessor(Wezel<typ> *poszukiwacz) {
+  Wezel<typ>* FindSuccessor(Wezel<typ> *poszukiwacz) {
       if(poszukiwacz -> Prawy != NULL)
           return FindMin(poszukiwacz -> Prawy);
 
@@ -66,6 +65,22 @@ class DrzewoBinarne : public IDrzew<typ>{
           tymczasowyWezel = tymczasowyWezel -> Rodzic;
       }
       return tymczasowyWezel;
+  }
+
+  /*!
+   * \brief Czyści drzewo
+   *
+   * Usuwa wszystkie węzły i zwalnia po nich pamięć leżące
+   * poniżej węzła węzła podanego w argumecie (z nim włącznie)
+   *
+   * \param wezel - węzeł od którego zaczyna się czyszczenie
+   */
+  void Czysc(Wezel<typ> *wezel) {
+      if(wezel != NULL) {
+        Czysc(wezel ->Lewy);
+        Czysc(wezel ->Prawy);
+        delete wezel;
+      }
   }
 
 public:
@@ -79,6 +94,16 @@ public:
   DrzewoBinarne() {
     Korzen = NULL;
     LiczbaWezlow = 0;
+  }
+
+  /*!
+   * \brief
+   * Destruktor
+   *
+   * Destruktor zwalnia pamięć usuwając wszystkie węzły drzewa.
+   */
+  ~DrzewoBinarne() {
+      Czysc(Korzen);
   }
 
   /*!
@@ -129,6 +154,11 @@ public:
       Wezel<typ> *usuwany = Search(wartosc);
       Wezel<typ> *nastepnik, *pomocniczy;
 
+      if(usuwany == NULL) {
+          std::cerr << "Brak szukanej wartosci w drzewie" << std::endl;
+          return;
+      }
+
       if((usuwany -> Lewy == NULL) || (usuwany -> Prawy == NULL))
           nastepnik = usuwany;
       else
@@ -149,7 +179,7 @@ public:
       }
       if(nastepnik != usuwany)
           usuwany -> Dana = nastepnik -> Dana;
-      return nastepnik;
+      --LiczbaWezlow;
   }
 
   /*!
@@ -163,7 +193,7 @@ public:
    *
    * \retval - odnaleziona wartość
    */
-  typ Search(typ wartosc) {
+  Wezel<typ>* Search(typ wartosc) {
       Wezel<typ> *poszukiwacz = Korzen;
 
       while((poszukiwacz != NULL) && (poszukiwacz -> Dana != wartosc)) {
@@ -172,8 +202,22 @@ public:
           else
               poszukiwacz = poszukiwacz -> Prawy;
       }
-      return poszukiwacz -> Dana;
+      return poszukiwacz;
   }
+
+  /*!
+   * \brief CzyscDrzewo
+   *
+   * Usuwa wszystkie węzły drzewa, walnia po nich pamięć,
+   * następnie ustawia korzeń na NULL i Liczbę węzłów na 0.
+   */
+  void CzyscDrzewo() {
+      Czysc(Korzen);
+      Korzen = NULL;
+      LiczbaWezlow = 0;
+  }
+
+
 };
 
 #endif

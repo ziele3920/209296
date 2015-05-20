@@ -1,14 +1,14 @@
-#ifndef FRAMEWORK_HH
-#define FRAMEWORK_HH
+#ifndef ITESTABLE_HH
+#define ITESTABLE_HH
 
 #include <iostream>
 
 /*!
  * \file
  * \brief 
- * Definicja klasy Framework
+ * Definicja klasy ITestable
  *
- * Plik zawiera definicję abstrakcyjnej klasy Framework,
+ * Plik zawiera definicję abstrakcyjnej klasy ITestable,
  * która tworzy interfejs dla programów implementowanych
  * podczas zajęć laboratoryjnych z PAMSI.
  */
@@ -21,7 +21,7 @@
  * Modeluje interfejs do programów wykonywanch 
  * w ramach kursu.
  */
-class Framework {
+class ITestable{
 
 public:
 
@@ -35,7 +35,7 @@ public:
    * \param[in] nazwaPliku - nazwa pliku z danymi
    * \param[in] n - ilość danych do wczytania
    */
-  virtual void WczytajDane(const char *nazwaPliku, unsigned int n) = 0;
+  virtual void WczytajDane(std::string const nazwaPliku, unsigned int n) = 0;
 
   /*!
    * \brief 
@@ -46,7 +46,7 @@ public:
    *
    * \param[in] k - ilość elementów dla których mają zostać wykonane obliczenia.
    */
-  virtual void Start(const unsigned int k) = 0;
+  virtual void Start(const unsigned int k, std::string const nazwaPliku ) = 0;
 
   /*!
    * \brief
@@ -55,7 +55,6 @@ public:
    * Zwalnia pamięć zajmowaną przez objekty wykorzytsane do testów
    */
   virtual void Zwolnij() = 0;
-  virtual void Pokaz() = 0;
 
 };
 

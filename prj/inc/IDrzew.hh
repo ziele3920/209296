@@ -6,7 +6,7 @@
  *
  * Plik zawiera definicję interfejsu IDrzew
  */
-
+#include "Wezel.hh"
 
 /*!
  * \brief The IDrzewclass
@@ -47,7 +47,7 @@ public:
      *
      * \retval - odnaleziona wartość
      */
-    virtual typ Search(typ wartosc) = 0;
+    //virtual Wezel<typ>* Search(typ wartosc) = 0;
 
 };
 

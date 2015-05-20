@@ -12,9 +12,10 @@
  */
 
 #include "../inc/Statystyka.hh"
-//#include "../inc/Benchmark.hh"
+#include "../inc/Benchmark.hh"
 #include "../inc/Pliki.hh"
-#include "../inc/DrzewoBinarne.hh"
+#include "../inc/DrzewoBinarneTest.hh"
+#include "../inc/DrzewoAVLTest.hh"
 /*!
  * \brief
  * Ilośc powtórzeń danej próby
@@ -29,24 +30,27 @@ const int ILOSC_POWTORZEN = 50;
  * 
  * Ilość prób = ilość rozmiarów prób
  */
-const int ILOSC_PROB = 9;
+const int ILOSC_PROB = 11;
 
 const std::string NAZWA_PLIKU_Z_DANYMI = "dane.dat";
 
 int main(int argc, char *argv[]) {
 
- unsigned int iloscDanych[ILOSC_PROB] = {10,10, 100, 400, 1000, 4000, 10000, 40000, 100000};
+ unsigned int iloscDanych[ILOSC_PROB] = {10,10, 100, 400, 1000, 4000, 10000, 40000, 100000, 400000, 1000000};//, 4000000, 10000000};
   std::string nazwaPlikuStat = "statystyka.dat";
 
-  Statystyka *stat = new Statystyka(ILOSC_PROB, iloscDanych, ILOSC_POWTORZEN);
-  //Benchmark<int> *B = new Benchmark<int>(ILOSC_PROB, iloscDanych, ILOSC_POWTORZEN);
+ Statystyka *stat = new Statystyka(ILOSC_PROB, iloscDanych, ILOSC_POWTORZEN);
 
-  //B -> DodajObserwatora(stat);
-  //LosujIntDoPliku(10000000, 100);
+   DrzewoBinarneTest<int> DBT;
 
-  //B -> Test(L, NAZWA_PLIKU_Z_DANYMI, qSort, L);
-  //stat -> ZapiszStaty(nazwaPlikuStat);
-  //B -> UsunObserwatora(stat);
+   Benchmark<int> *B = new Benchmark<int>(ILOSC_PROB, iloscDanych, ILOSC_POWTORZEN);
+
+  B -> DodajObserwatora(stat);
+  LosujIntRandDoPliku(10000000, 2100000000);
+
+  B -> Test(DBT, NAZWA_PLIKU_Z_DANYMI);
+  stat -> ZapiszStaty(nazwaPlikuStat);
+  B -> UsunObserwatora(stat);
 
 return 0;
 }
