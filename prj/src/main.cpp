@@ -27,6 +27,7 @@
 
 #include "../inc/Statystyka.hh"
 #include "../inc/Benchmark.hh"
+#include "../inc/Graf.hh"
 
 
 /*!
