@@ -1,4 +1,4 @@
-#ifndef ITERABLE_HH
+em#ifndef ITERABLE_HH
 #define ITERABLE_HH
 
 /*!
@@ -32,15 +32,6 @@ public:
  */
 virtual typ operator[] (unsigned int i) = 0;
 
-/*!
- * \brief RefEnd
- *
- * Zwraca referencję do ostatniego elementu kontenera umożliwiając przypisanie
- * tam nowego elementu.
- *
- * \retval - referencja do ostatniego pola listy
- */
-virtual typ &RefEnd() = 0;
 };
 
 #endif

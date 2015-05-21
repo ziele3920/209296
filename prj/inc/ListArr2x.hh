@@ -224,17 +224,6 @@ public:
     return tab[i];
   }
 
-  /*!
-   * \brief RefEnd
-   *
-   * Zwraca referencję do ostatniego elementu listy umożliwiając przypisanie
-   * tam nowego elementu.
-   *
-   * \retval - referencja do ostatniego pola listy
-   */
-  typ &RefEnd() {
-      return tab[RozmiarL-1];
-  }
 
 
 };

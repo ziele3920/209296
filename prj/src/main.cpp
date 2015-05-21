@@ -25,7 +25,6 @@
  *  np: "./a.out"
  */
 
-#include "../inc/TabAsoc.hh"
 #include "../inc/Statystyka.hh"
 #include "../inc/Benchmark.hh"
 
@@ -51,7 +50,7 @@ int main(int argc, char *argv[]) {
   std::string nazwaPlikuStat[1] = {"TabHash.dat"};
   std::string dane = "rand_dane_z_kluczem.dat";
   Statystyka *stat = new Statystyka(ILOSC_PROB, iloscDanych, ILOSC_POWTORZEN);
-  TabAsoc *TA = new TabAsoc;
+/*  TabAsoc *TA = new TabAsoc;
 
   Benchmark<int> *B = new Benchmark<int>(ILOSC_PROB, iloscDanych, ILOSC_POWTORZEN);
 
@@ -59,6 +58,6 @@ int main(int argc, char *argv[]) {
   B -> Test(TA, dane);
   stat -> ZapiszStaty(nazwaPlikuStat[0]);
   B -> UsunObserwatora(stat);
-
+*/
 return 0;
 }
