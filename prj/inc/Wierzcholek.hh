@@ -2,16 +2,25 @@
 #define WIERZCHOLEK_HH
 
 #include "Lista.hh"
-#include "Krawedz.hh"
+
+enum status {nieodwiedzony, odwiedzony, powrotny, poprzeczny };
+
+template < class typ >
+struct Krawedz;
 
 template < class typ >
 struct Wierzcholek {
 
   typ Dana;
-  Wierzcholek<typ> **PozNaLiscieWierzcholkow;
-  // Lista< Krawedz<typ>* > ListaSasiedztwa;
-  // NIE BANGLA!!!!!
-  
+  Lista< Krawedz<typ>* > ListaKrawedziV;
+  status Label;
+
+  ~Wierzcholek() {
+      for(size_t i = 0; i < ListaKrawedziV.size(); ++i)
+          delete ListaKrawedziV[i];
+    ListaKrawedziV.Zwolnij();
+  }
+
 };
 
 

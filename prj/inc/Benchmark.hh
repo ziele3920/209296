@@ -1,7 +1,7 @@
 #ifndef BENCHMARK_HH
 #define BENCHMARK_HH
 
-#include "Framework.hh"
+#include "ITestable.hh"
 #include <ctime>
 #include "Statystyka.hh"
 #include "IObserwowany.hh"
@@ -84,7 +84,7 @@ public:
  * \param[in] I - objekt klasy na której zostanie przeprowadzony test
  * \param[in] nazwaPlikuDane - nazwa pliku z danymi do wczytania
  */
-void Test(Framework *I, std::string const nazwaPlikuDane) {
+void Test(ITestable *I, std::string const nazwaPlikuDane) {
   std::fstream plikIn;
 
 

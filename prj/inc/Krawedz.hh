@@ -7,11 +7,14 @@
 template < class typ >
 struct Krawedz {
 
-  int waga;
   Wierzcholek<typ> *WierzcholekLewy;
   Wierzcholek<typ> *WierzcholekPrawy;
-  Krawedz<typ> **PozNaLiscieKrawedzi;
-  Lista< Krawedz<typ>* > *PozNaLiscieSasiedztwa;
+  status Label;
+
+Krawedz() {
+    WierzcholekLewy = NULL;
+    WierzcholekPrawy = NULL;
+}
 
 
 };

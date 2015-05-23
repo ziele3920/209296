@@ -22,7 +22,7 @@
  * Modeluje interfejs do programów wykonywanch 
  * w ramach kursu.
  */
-class Framework {
+class ITestable {
 
 public:
 

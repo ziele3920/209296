@@ -7,7 +7,6 @@
 * wraz z jej składowymi metofdami.
 */
 #include "InterfejsADT.hh"
-#include "Iterable.hh"
 /*!
 * \brief
 * Modeluje pojęcie Listy (array)
@@ -169,38 +168,7 @@ public:
 * \retval - zwraca liczbę elementów ListyArr1
 */
   unsigned int size() const { return RozmiarL; }
-/*!
-* \brief
-* Metoda której czas wykonania jest testowany
-*
-* Metoda testująca czas wczytania n elementów na ListęArr2x
-*
-* \param[in] k - ilość elementów do wczytania
-* \param[in] plik - uchwyt to pliku z danymi
-*/
-  void Start(std::fstream &plik, const unsigned int k) {
-    for (unsigned int i = 0; i < k; i++)
-      this -> push(3, this->RozmiarL);
-}
-/*!
-* \brief
-* Wczytuje dane z pliku
-*
-* Wczytuje dane z pliku do ListArr2x
-*
-* param[in] nazwaPliku - nazwa pliku z danymi
-* param[in] n - ilość danych do wczytania, 0 oznacza wszystkie dane z pliku
-*/
-  void WczytajDane(const char *nazwaPliku, unsigned int n) {
-    std::fstream plik;
-    int pom;
-    OtworzPlikIn(nazwaPliku, plik);
-    for(int i = 0; i < (int)n; ++i) {
-      plik >> pom;
-      push(pom, RozmiarL);
-    }
-    plik.close();
-  }
+
 /*!
 * \brief
 * Zwalnia pamięć

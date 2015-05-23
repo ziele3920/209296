@@ -121,7 +121,7 @@ public:
    */
   void Zwolnij() {
     Element *next = Poczatek;
-    for (unsigned int i = 0; i<(Rozmiar-1); i++) {
+    for (unsigned int i = 0; i<(Rozmiar-1); ++i) {
       next = next -> nastepny;
       delete Poczatek;
       Poczatek = next;
@@ -198,14 +198,12 @@ public:
     }
     else if(pole == 0) {
       Element *tymczasowy = Poczatek->nastepny;
-      typ wart = Poczatek -> wartosc;
       delete Poczatek;
       Poczatek = tymczasowy;
       Rozmiar--;
     }
     else if(pole == (Rozmiar-1)) {
       Element *indeksator = Poczatek; 
-      typ wart = Koniec -> wartosc;
       for(unsigned int i = 0; i<(pole-1); i++)
 	indeksator = indeksator -> nastepny;
       delete Koniec;
@@ -215,12 +213,10 @@ public:
     else {
       Element *indeksator = Poczatek;
       Element *tymczasowy;
-      typ wart;
       for(unsigned int i = 0; i<(pole-1); i++)
 	indeksator = indeksator -> nastepny;
       tymczasowy = indeksator -> nastepny;
       indeksator -> nastepny = tymczasowy -> nastepny;
-      wart = tymczasowy -> wartosc;
       delete tymczasowy;
       Rozmiar--;
     }
@@ -236,36 +232,6 @@ public:
      */
   unsigned int size() const { return Rozmiar; }
 
-  /*!
-   * \brief
-   * Wczytuje dane z pliku
-   *
-   * Wczytuje dane zamieszczone w pliku do Listy. 
-   * Każdą nową daną umieszcza na końcu listy.
-   *
-   * \param[in] nazwaPliku - nazwa pliku z danymi
-   * \param[in] n - ilość danych do wczytania (domyślnie 0 - wysztkie 
-   *                dane z pliku, zmiana wartości nie ma wpływu na działanie
-   *                metody w aktualnej wersji
-   */
-  void WczytajDane(const char *nazwaPliku,  unsigned int n=0) {
-    std::fstream plik;
-    typ wartosc;
-    size_t i = 0;
-
-    OtworzPlikIn(nazwaPliku, plik);
-    while (!plik.eof()) {
-      plik >> wartosc;
-      if(plik.fail()) {
-	std::cerr << "Blad wartosci pliku z danymi" << std::endl;
-	exit (-4);
-      }
-      this -> push(wartosc, Rozmiar);
-      ++i;
-    }
-    std::cout << "Wczytano " << i << " danych" << std::endl;
-    plik.close();
-  }
 
   /*!
    * \brief
@@ -285,24 +251,27 @@ public:
 	indeksator = indeksator -> nastepny;
       return indeksator -> wartosc;
     }
-    return -1;
+    return NULL;
   }
 
   /*!
-   * \brief
-   * Proces obliczeniowy 
+   * \brief Remove
    *
-   * Wykonuje proces oblcizeniowy, którego czas wykonania
-   * jest mierzony na potrzeby laboratoriów PAMSI
-   * W tym wypakdu tworzy Listę k elementową wypełnioną
-   * stałą liczbą '3'.
+   * Usuwa z listy element przechowujący daną wartość
    *
-   * \param[in] k - ilość danych dla których ma zostać
-   *                przeprowadzona precedura obnliczeniowa
+   * \param[in] dana - wartość przechowywana prze zelement do usunięcia
    */
-  void Start(const unsigned int k) {
-    for(unsigned int i = 0; i < k; i++)
-      this -> push(3, 0);
+  void Remove(const typ dana) {
+
+      Element *indeksator = Poczatek;
+      for(size_t i = 0; i<Rozmiar; ++i) {
+          if(indeksator -> wartosc == dana) {
+              pop(i);
+              return;
+          }
+          indeksator = indeksator -> nastepny;
+       }
+      std::cerr << "Blad usuwania z listy, nie znaleziono elemntu" << std::endl;
   }
 
 };

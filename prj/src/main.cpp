@@ -47,10 +47,45 @@
 #define ILOSC_PROB 8
 
 int main(int argc, char *argv[]) {
-  unsigned int iloscDanych[ILOSC_PROB] = {40, 100, 400, 1000, 4000, 10000, 40000, 100000};
-  std::string nazwaPlikuStat[1] = {"TabHash.dat"};
-  std::string dane = "rand_dane_z_kluczem.dat";
-  Statystyka *stat = new Statystyka(ILOSC_PROB, iloscDanych, ILOSC_POWTORZEN);
+
+
+    Graf<int> GF;
+
+    GF.DodajWierzcholek(7);
+    GF.DodajWierzcholek(3);
+    GF.DodajWierzcholek(99);
+    GF.DodajWierzcholek(10);
+    GF.DodajWierzcholek(5);
+    GF.DodajKrawedz(7,5);
+    GF.DodajKrawedz(7,3);
+    GF.DodajKrawedz(3,99);
+    GF.DodajKrawedz(3,10);
+
+    Lista<int> sciezka;
+    Lista<int> sc;
+
+    GF.ResetLabels();
+    GF.SciezkaDFS(&sciezka, GF.DajWierzcholek(7) ,99);
+    GF.ResetLabels();
+    GF.SciezkaBFS(&sc, GF.DajWierzcholek(7), 99);
+
+    for(size_t i = 0; i < sciezka.size(); ++i)
+        std::cout << sciezka[i] << ", ";
+    std::cout << std::endl;
+
+    for(size_t i = 0; i < sc.size(); ++i)
+        std::cout << sc[i] << ", ";
+    std::cout << std::endl;
+
+
+
+
+
+
+//  unsigned int iloscDanych[ILOSC_PROB] = {40, 100, 400, 1000, 4000, 10000, 40000, 100000};
+//  std::string nazwaPlikuStat[1] = {"TabHash.dat"};
+//  std::string dane = "rand_dane_z_kluczem.dat";
+//  Statystyka *stat = new Statystyka(ILOSC_PROB, iloscDanych, ILOSC_POWTORZEN);
 /*  TabAsoc *TA = new TabAsoc;
 
   Benchmark<int> *B = new Benchmark<int>(ILOSC_PROB, iloscDanych, ILOSC_POWTORZEN);

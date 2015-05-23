@@ -46,3 +46,7 @@ doc/Makefile
 class*pdf
 *.dat
 callgrind*
+*.config
+*.creator
+*.files
+*.includes
