@@ -84,22 +84,21 @@ public:
  * \param[in] I - objekt klasy na której zostanie przeprowadzony test
  * \param[in] nazwaPlikuDane - nazwa pliku z danymi do wczytania
  */
-void Test(ITestable *I, std::string const nazwaPlikuDane) {
+void Test(ITestable *I, std::string const nazwaPlikuDane[]) {
   std::fstream plikIn;
 
 
   for(size_t j = 0; j < IleProb; ++j) {
+      std::cout << "wczytuje " << std::endl;
+    I -> WczytajDane(nazwaPlikuDane[j].c_str(), IleDanych[j]);
+    std::cout << "wczytalem " << std::endl;
     for(size_t k = 0; k < IlePowtorzen; ++k) {
- 
-      I -> WczytajDane(nazwaPlikuDane.c_str(), IleDanych[j]);
-      OtworzPlikIn(nazwaPlikuDane.c_str(), plikIn);
+      I -> Reset();
       this -> PowiadomObserwatorow();
-      I -> Start(plikIn, IleDanych[j]);
+      I -> Start(5, IleDanych[j]-1);
       this -> PowiadomObserwatorow();
-      I -> Zwolnij();
-      plikIn.close();
-
     }
+    I -> Zwolnij(nazwaPlikuDane[j].c_str(), IleDanych[j]);
   }
  }
 

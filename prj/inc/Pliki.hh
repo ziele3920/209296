@@ -10,6 +10,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
+#include "Lista.hh"
 
 /*!
  * \brief
@@ -46,5 +47,7 @@ void OtworzPlikOut(const char *nazwaPliku, std::fstream &plik);
  * \param[in] zakres - górny zakres wartości liczb
  */
 void LosujIntDoPliku(const unsigned int n, const unsigned int zakres);
+
+void LosujGrafIntDoPliku(const unsigned int w, const unsigned int e, const unsigned int zakres);
 
 #endif

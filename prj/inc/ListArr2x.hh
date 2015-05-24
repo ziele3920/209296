@@ -15,7 +15,7 @@
 * Dodając elementy zwiększa tablicę dwukrotnie, jeżeli brakuje miejsca.
 a */
 template < class typ>
-class ListArr2x : public InterfejsADT<typ>, public Iterable<typ> {
+class ListArr2x : public InterfejsADT<typ>{
 /*!
 * \brief
 * Wkaźnik na dynamiczną tablicę
@@ -188,10 +188,27 @@ public:
    * \param[in] i - indeks elementu
    * \retval - zwraca wartośc znajdującą się na danym indeksie
    */
-  typ operator[] (unsigned int i) {
-    return tab[i];
+  typ operator[] (const size_t pole) const {
+    return tab[pole];
   }
 
+  /*!
+   * \brief Remove
+   *
+   * Usuwa z listy element przechowujący daną wartość
+   *
+   * \param[in] dana - wartość przechowywana prze zelement do usunięcia
+   */
+  void Remove(const typ dana) {
+
+      for(size_t i = 0; i<RozmiarL; ++i) {
+          if(tab[i] == dana) {
+              pop(i);
+              return;
+          }
+       }
+      std::cerr << "Blad usuwania z listy, nie znaleziono elemntu" << std::endl;
+  }
 
 
 };

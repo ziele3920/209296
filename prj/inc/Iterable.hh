@@ -1,4 +1,4 @@
-em#ifndef ITERABLE_HH
+#ifndef ITERABLE_HH
 #define ITERABLE_HH
 
 /*!
@@ -27,10 +27,10 @@ public:
  * \brief operator []
  *
  * Przeciążenie operatora [] w celu umożliwienia przeglądania kontenera
- * \param[in] i - indeks elementu
+ * \param[in] pole - indeks elementu
  * \retval - zwraca wartośc znajdującą się na danym indeksie
  */
-virtual typ operator[] (unsigned int i) = 0;
+virtual typ operator[] (const size_t pole) const = 0;
 
 };
 

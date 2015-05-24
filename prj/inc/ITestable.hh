@@ -7,19 +7,19 @@
 /*!
  * \file
  * \brief 
- * Definicja klasy Framework
+ * Definicja klasy ITestable
  *
- * Plik zawiera definicję abstrakcyjnej klasy Framework,
- * która tworzy interfejs dla programów implementowanych
+ * Plik zawiera definicję abstrakcyjnej klasy ITestable,
+ * która tworzy interfejs testowy dla programów implementowanych
  * podczas zajęć laboratoryjnych z PAMSI.
  */
 
 
 /*!
  * \brief
- * Modeluje interfejs programu
+ * Modeluje interfejs tetsowy programu
  *
- * Modeluje interfejs do programów wykonywanch 
+ * Modeluje interfejs testowy do programów wykonywanch
  * w ramach kursu.
  */
 class ITestable {
@@ -36,7 +36,7 @@ public:
    * \param[in] nazwaPliku - nazwa pliku z danymi
    * \param[in] n - ilość danych do wczytania
    */
-  virtual void WczytajDane(const char *nazwaPliku, const  unsigned int n) = 0;
+  virtual void WczytajDane(std::string const nazwaPliku, const unsigned int n) = 0;
 
   /*!
    * \brief 
@@ -45,18 +45,28 @@ public:
    * Metoda w której implementowana jest część obliczeniowa
    * programu, której czas wykonania zostanie zmierzony.
    *
-   * \param[in] k - ilość elementów dla których mają zostać wykonane obliczenia.
-   * \param[in] plik - plik z którego wczytujemy dane
+   * \param[in] w1 - pierwsza wartość
+   * \param[in] w2 -  druga wartość
    */
-  virtual void Start(std::fstream &plik, const unsigned int k) = 0;
+  virtual void Start(const unsigned int w1, const unsigned int w2) = 0;
+
+    /*!
+   * \brief Reset
+   *
+   * Resetuje flagi.
+   */
+  virtual void Reset() = 0;
 
   /*!
    * \brief
    * Zwalnia pamięć po teście
    *
    * Zwalnia pamięć zajmowaną przez objekty wykorzytsane do testów
+   *
+   * param[in] nazwaPliku - plik z danymi
+   * param[in] n - ilosc danych
    */
-  virtual void Zwolnij() = 0;
+  virtual void Zwolnij(std::string const nazwaPliku, const unsigned int n) = 0;
 
 };
 

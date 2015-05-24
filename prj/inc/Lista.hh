@@ -12,6 +12,7 @@
 
 #include "InterfejsADT.hh"
 #include "Pliki.hh"
+#include "Iterable.hh"
 
 /*!
  * \brief
@@ -21,7 +22,7 @@
  * Uwaga! Listę indeksujemy od 0.
  */
 template< class typ > 
-class Lista : public InterfejsADT<typ> {
+class Lista : public InterfejsADT<typ>, public Iterable<typ> {
 
   /*! 
    * \brief
