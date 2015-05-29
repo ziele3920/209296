@@ -70,7 +70,7 @@ class DrzewoAVL : public IDrzew<typ>{
     /*!
      * \brief Rotacja RR
      *
-     * Metoda wykonuje rotację RR, gdzie A jest węzłem głównym
+     * Metoda wykonuje rotację prawą, gdzie A jest węzłem głównym
      * rotacji.
      * \param[in] A - wskaźnik do węzła głównego rotacji
      */
@@ -104,7 +104,7 @@ class DrzewoAVL : public IDrzew<typ>{
     /*!
      * \brief Rotacja LL
      *
-     * Metoda wykonuje rotację LL, gdzie A jest węzłem głównym
+     * Metoda wykonuje rotację lewą, gdzie A jest węzłem głównym
      * rotacji.
      * \param[in] A - wskaźnik do węzła głównego rotacji
      */
@@ -136,7 +136,7 @@ class DrzewoAVL : public IDrzew<typ>{
     /*!
      * \brief Rotacja RL
      *
-     * Metoda wykonuje rotację RL, gdzie A jest węzłem głównym
+     * Metoda wykonuje rotację prawą i lewą, gdzie A jest węzłem głównym
      * rotacji.
      * \param[in] A - wskaźnik do węzła głównego rotacji
      */
@@ -178,7 +178,7 @@ class DrzewoAVL : public IDrzew<typ>{
     /*!
      * \brief Rotacja LR
      *
-     * Metoda wykonuje rotację LR, gdzie A jest węzłem głównym
+     * Metoda wykonuje rotację lewą i prawą, gdzie A jest węzłem głównym
      * rotacji.
      * \param[in] A - wskaźnik do węzła głównego rotacji
      */
