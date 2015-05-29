@@ -48,6 +48,29 @@ void OtworzPlikOut(const char *nazwaPliku, std::fstream &plik);
  */
 void LosujIntDoPliku(const unsigned int n, const unsigned int zakres);
 
+/*!
+ * \brief LosujGrafIntDoPliku
+ *
+ * Generuje plik zawierający losowo wygenerowane, niepowtarzające się
+ * wierzchołki i krawędzie(mogące się powtarzać) tworzące spójny graf.
+ * Wierzchołki są reprezentowane przez liczby typu całkowitoliczbowego.
+ *
+ * Schemat pliku:
+ *
+ * "pierwszy_wierzchołek nowy_wierzchołek nowy_wierzchołekTK wierzcholekTK"
+ *
+ * gdzie trójki (nie licząc pierwszego_wierzchołka) powtarzają się tyle razy ile
+ * ma być wierzchołków pomniejszonych o 1. , gdzie zaimek TK oznacza
+ * wierzchołek z grupy wcześniej wygenerowanych wierzchołków do którego zaczepiony
+ * zostaje koniec krawędzi między (nowy_wierzcholekTK i wierzcholekTK).
+ * Reszte pliku stanowią pary wierzchołków tworzące nowe krawędzie.
+ *
+ *  Ilość krawędzi musi być większa lub równa ilości wierzchołków.
+ *
+ * \param w - zadana ilość wierzchołków grafu
+ * \param e - zadana ilość grawędzi
+ * \param zakres - zakres liczb wartości wierzchołków
+ */
 void LosujGrafIntDoPliku(const unsigned int w, const unsigned int e, const unsigned int zakres);
 
 #endif

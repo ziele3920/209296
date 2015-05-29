@@ -9,7 +9,6 @@
 #include "Krawedz.hh"
 #include "ListArr2x.hh"
 
-const unsigned int MAX_ZAKRES_WIERZCHOKOW = 10000000;
 
 /*!
  * \brief The Graf class
@@ -36,15 +35,19 @@ class Graf {
     //ListArr2x< Krawedz<typ>* > ListaKrawedzi;
 
   /*!
-   * \brief wierzcholek
+   * \brief ListySasiedztwa
    *
-   * Tablica przyśpieszająca wczytywania danych do przeprowadzanych
-   * testów, informująca o tym, czy wierzchołek o danym numerze
-   * został już wcześniej wczytany.
+   * Pole przechowujące listy sąsiedztwa wierzchołków grafu.
    */
-  //bool *wierzcholek;
+  Lista< Lista< Wierzcholek<typ>* > > ListySasiedztwa;
 
+  /*!
+   * \brief znaleziono
+   *
+   * Zmienna mocnicza przy rekurencyjnym algorytmie DFS szukania ścieżki
+   */
   bool znaleziono = false;
+
 
 
   /*!
@@ -314,6 +317,7 @@ public:
       }
       delete[] poprzednik;
   }
+
 
 //  void zw() {
 //      ListaWierzcholkow.Zwolnij();

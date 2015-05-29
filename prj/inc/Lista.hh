@@ -252,7 +252,7 @@ public:
 	indeksator = indeksator -> nastepny;
       return indeksator -> wartosc;
     }
-    return NULL;
+    return typ();
   }
 
   /*!

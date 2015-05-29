@@ -1,8 +1,6 @@
 # 209296
-LAB5
+LAB8
 
-TABLICA HASZUJĄCA
+GRAFY
 
-OBSŁUGA PROGRAMU: Aby wywołać program należy w lini poleceń  wywołać jego nazwę np: 
-"./a.out"
 
